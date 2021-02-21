@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   ImageBackground,
@@ -6,36 +6,50 @@ import {
   StyleSheet,
   Text,
   SafeAreaView,
-  SectionList,
+  FlatList,
   StatusBar,
+  TouchableOpacity,
+  Button,
 } from 'react-native';
 
 const DATA = [
   {
-    title: 'February 2021',
-    data: ['Entry', 'Entry', 'Entry'],
+    id: '3',
+    date: 'Feb 18, 2021',
+    entry: 'Here is my third journal entry',
   },
   {
-    title: 'January 2021',
-    data: ['Entry', 'Entry', 'Entry'],
+    id: '2',
+    date: 'Feb 12, 2021',
+    entry: 'Here is my second journal entry',
   },
   {
-    title: 'December 2020',
-    data: ['Entry', 'Entry', 'Entry'],
-  },
-  {
-    title: 'November 2020',
-    data: ['Entry', 'Entry'],
+    id: '1',
+    date: 'Feb 1, 2021',
+    entry: 'Here is my first journal entry',
   },
 ];
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
+const Item = ({ item, onPress, style }) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+    <Text style={styles.date}>{item.date}</Text>
+    <Text style={styles.entry}>{item.entry}</Text>
+  </TouchableOpacity>
 );
 
-const Journal = () => {
+const Journal = ({ navigation }) => {
+  const [selectedId, setSelectedId] = useState(null);
+
+  const renderItem = ({ item }) => {
+    return (
+      <Item
+        item={item}
+        onPress={() => setSelectedId(item.id)}
+        style={{ item }}
+      />
+    );
+  };
+
   return (
     <ImageBackground
       source={require('../../../assets/journalbackground.png')}
@@ -49,13 +63,19 @@ const Journal = () => {
           <Image source={require('../../../assets/journal.png')} />
         </View>
         <View>
-          <SectionList
-            sections={DATA}
-            keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => <Item title={item} />}
-            renderSectionHeader={({ section: { title } }) => (
-              <Text style={styles.sectionHeader}>{title}</Text>
-            )}
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            extraData={selectedId}
+          />
+        </View>
+        <View style={styles.addEntryButton}>
+          <Button
+            title="Write"
+            onPress={() => {
+              navigation.navigate('AddJournalEntry');
+            }}
           />
         </View>
       </SafeAreaView>
@@ -84,7 +104,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   item: {
+    flex: 1,
+    flexDirection: 'column',
     backgroundColor: 'rgba(247, 168, 184, 0.3)',
+    borderRadius: 10,
     padding: 40,
     marginVertical: 8,
     marginHorizontal: 20,
@@ -95,8 +118,22 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     backgroundColor: 'lightgrey',
   },
-  title: {
-    fontSize: 24,
+  date: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginRight: 10,
+    marginLeft: -25,
+    marginBottom: 20,
+    marginTop: -20,
+  },
+  entry: {
+    fontSize: 14,
+  },
+  flatlistStyle: {
+    flexDirection: 'row',
+  },
+  addEntryButton: {
+    justifyContent: 'center',
   },
 });
 

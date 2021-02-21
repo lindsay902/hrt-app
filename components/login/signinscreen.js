@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, StyleSheet, Image, View } from 'react-native';
 import About from './about';
 
-const HomeScreen = ({ navigation }) => {
+const SignInScreen = ({ navigation }) => {
   return (
     <LinearGradient
       colors={['#55CDFC', 'white', '#F7A8B8']}
@@ -15,10 +15,17 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.button}>
           <Button
-            title="My Profile"
+            title="Sign In"
             color="white"
-            accessibilityLabel="Your Profile"
-            onPress={() => navigation.navigate('Profile')}
+            accessibilityLabel="Sign In"
+            //temporarily redirecting to profile
+            onPress={() => navigation.navigate('LoginScreen')}
+          />
+          <Button
+            title="Sign Up"
+            color="white"
+            accessibilityLabel="Sign Up"
+            onPress={() => navigation.navigate('SignUpScreen')}
           />
         </View>
         <About />
@@ -49,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default SignInScreen;
