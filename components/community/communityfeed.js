@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Communityfeed = () => {
+const CommunityFeed = () => {
   return (
     <View>
       <Text>My community feed</Text>
@@ -9,4 +9,4 @@ const Communityfeed = () => {
   );
 };
 
-export default Communityfeed;
+export default CommunityFeed;

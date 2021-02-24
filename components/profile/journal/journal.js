@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import {
   View,
@@ -14,21 +15,35 @@ import {
 
 const DATA = [
   {
-    id: '3',
+    key: '3',
     date: 'Feb 18, 2021',
     entry: 'Here is my third journal entry',
   },
   {
-    id: '2',
+    key: '2',
     date: 'Feb 12, 2021',
     entry: 'Here is my second journal entry',
   },
   {
-    id: '1',
+    key: '1',
     date: 'Feb 1, 2021',
     entry: 'Here is my first journal entry',
   },
 ];
+
+const GETDATA = async () => {
+  let keys = [];
+  let values;
+  try {
+    keys = await AsyncStorage.getAllKeys();
+    console.log(keys);
+    values = await AsyncStorage.multiGet(keys);
+    //console.log(values);
+    return values;
+  } catch (e) {
+    console.log('did not get items');
+  }
+};
 
 const Item = ({ item, onPress, style }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
@@ -74,7 +89,19 @@ const Journal = ({ navigation }) => {
           <Button
             title="Write"
             onPress={() => {
-              navigation.navigate('AddJournalEntry');
+              navigation.navigate('JournalEntry');
+            }}
+          />
+          <Button
+            title="Post"
+            onPress={() => {
+              GETDATA();
+            }}
+          />
+          <Button
+            title="Entries"
+            onPress={() => {
+              navigation.navigate('JournalEntries');
             }}
           />
         </View>

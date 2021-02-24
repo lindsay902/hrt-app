@@ -10,8 +10,7 @@ async function getValueFor(key, value) {
   let resultForPassword = await SecureStore.getItemAsync(value);
   if (resultForUsername && resultForPassword) {
     loggedIn = true;
-    console.log(loggedIn);
-    return GoToProfile();
+    alert('Logged in!');
   } else {
     // eslint-disable-next-line no-alert
     alert('Sorry - your username or password is incorrect.');
@@ -20,6 +19,11 @@ async function getValueFor(key, value) {
 
 const GoToProfile = ({ navigation }) => {
   navigation.navigate('HomeScreen');
+};
+
+const handleLoginPress = async (navigation, key, value) => {
+  await getValueFor(key, value);
+  navigation.navigate('Home');
 };
 
 const LoginScreen = ({ navigation }) => {
@@ -44,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
       <Button
         title="Login"
         onPress={() => {
-          getValueFor(key, value);
+          handleLoginPress(navigation, key, value);
           onChangeKey('');
           onChangeValue('');
         }}
@@ -52,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
       <Button
         title="Go To Profile"
         onPress={() => {
-          navigation.navigate('HomeScreen');
+          navigation.navigate('Home');
         }}
       />
     </View>

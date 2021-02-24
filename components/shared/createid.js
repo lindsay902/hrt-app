@@ -1,4 +1,4 @@
-export default (len, pattern) => {
+function createRandomId(len, pattern) {
   const possibilities = [
     'abcdefghijklmnopqrstuvwxyz',
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -27,4 +27,6 @@ export default (len, pattern) => {
   }
 
   return result;
-};
+}
+
+export default createRandomId;
