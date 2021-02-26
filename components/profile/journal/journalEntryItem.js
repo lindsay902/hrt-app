@@ -1,73 +1,58 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import * as Random from 'expo-random';
 import { TextInput } from 'react-native-gesture-handler';
 import createRandomId from '../../shared/createid';
 
-const storePosts = async (post) => {
-  try {
-    const jsonValue = JSON.stringify(post);
-    console.log(jsonValue);
-    await AsyncStorage.setItem('key', jsonValue);
-    console.log('post saved');
-  } catch (e) {
-    console.log('Post did not save');
-  }
-};
-
-//let randomKey = new Random.getRandomBytes(5);
-let randomKey = createRandomId();
-
-let timeElapsed = Date.now();
-let today = new Date(timeElapsed);
-const dateToday = today.toDateString();
-
 const JournalEntry = () => {
-  const [post, onChangePosts] = useState({
-    key: '',
-    date: '',
-    entry: '',
-  });
+  const [post, setPost] = useState('');
+
+  const onChangeText = (text) => setPost(text);
+
+  const onSubmitEditing = () => {
+    if (!post) {
+      return;
+    } else {
+      storePosts(post);
+      setPost('');
+    }
+  };
+
+  const storePosts = async () => {
+    try {
+      let randomKey = createRandomId();
+      randomKey = randomKey.toString();
+      await AsyncStorage.setItem(randomKey, post);
+      console.log('post saved');
+    } catch (e) {
+      console.log('Post did not save');
+    }
+  };
 
   return (
-    <ImageBackground
-      source={require('../../../assets/journalbackground.png')}
-      style={styles.backgroundImage}
-    >
-      <View style={styles.container}>
-        <Text style={styles.text}>Add a post:</Text>
-        {}
-        <TextInput
-          style={styles.textInput}
-          multiline
-          numberOfLines={100}
-          clearTextOnFocus
-          placeholder="Your thoughts..."
-          //onChangeText={(entry) => onChangePosts({ newKey, dateToday, entry })}
-          onChangeText={(text) => {
-            const newPost = {
-              key: randomKey,
-              date: dateToday,
-              entry: text,
-            };
-            onChangePosts(newPost);
-            console.log(newPost);
+    <View style={styles.container}>
+      <Text style={styles.text}>Add a post:</Text>
+      {}
+      <TextInput
+        style={styles.textInput}
+        multiline
+        numberOfLines={100}
+        clearTextOnFocus
+        placeholder="Your thoughts..."
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
+      />
+      {}
+      <View style={styles.button}>
+        <Button
+          title="Post"
+          color="white"
+          onPress={() => {
+            storePosts(post);
           }}
         />
-        {}
-        <View style={styles.button}>
-          <Button
-            title="Post"
-            color="white"
-            onPress={() => {
-              storePosts(post);
-              onChangePosts('');
-            }}
-          />
-        </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 const styles = StyleSheet.create({

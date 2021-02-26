@@ -3,7 +3,7 @@ import { Button, View, StyleSheet, TextInput } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
 let loggedIn = false;
-console.log(loggedIn);
+//console.log(loggedIn);
 
 async function getValueFor(key, value) {
   let resultForUsername = await SecureStore.getItemAsync(key);
@@ -18,7 +18,7 @@ async function getValueFor(key, value) {
 }
 
 const GoToProfile = ({ navigation }) => {
-  navigation.navigate('HomeScreen');
+  navigation.navigate('Home');
 };
 
 const handleLoginPress = async (navigation, key, value) => {

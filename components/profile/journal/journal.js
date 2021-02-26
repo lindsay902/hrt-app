@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   ImageBackground,
@@ -13,36 +13,13 @@ import {
   Button,
 } from 'react-native';
 
-const DATA = [
-  {
-    key: '3',
-    date: 'Feb 18, 2021',
-    entry: 'Here is my third journal entry',
-  },
-  {
-    key: '2',
-    date: 'Feb 12, 2021',
-    entry: 'Here is my second journal entry',
-  },
-  {
-    key: '1',
-    date: 'Feb 1, 2021',
-    entry: 'Here is my first journal entry',
-  },
-];
-
-const GETDATA = async () => {
-  let keys = [];
-  let values;
+const clearAll = async () => {
   try {
-    keys = await AsyncStorage.getAllKeys();
-    console.log(keys);
-    values = await AsyncStorage.multiGet(keys);
-    //console.log(values);
-    return values;
+    await AsyncStorage.clear();
   } catch (e) {
-    console.log('did not get items');
+    console.log('Could not delete');
   }
+  console.log('Done.');
 };
 
 const Item = ({ item, onPress, style }) => (
@@ -52,14 +29,56 @@ const Item = ({ item, onPress, style }) => (
   </TouchableOpacity>
 );
 
+let timeElapsed = Date.now();
+let today = new Date(timeElapsed);
+const dateToday = today.toDateString();
+console.log(dateToday);
+
 const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const result = getValues();
+    setItems(result.items);
+  }, []);
+
+  let timeElapsed = Date.now();
+  let today = new Date(timeElapsed);
+  const dateToday = today.toDateString();
+  console.log(dateToday);
+
+  const getValues = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys((err, keys) => {
+        if (err) {
+          return [];
+        } else {
+          console.log(keys);
+          return keys;
+        }
+      });
+      let value = await AsyncStorage.multiGet(keys);
+      value = value.map((result, i, store) => {
+        let key = store[i][0];
+        let entry = store[i][1];
+        return {
+          key: key,
+          date: dateToday,
+          entry: entry,
+        };
+      });
+      setItems(value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const renderItem = ({ item }) => {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => setSelectedId(item.key)}
         style={{ item }}
       />
     );
@@ -79,9 +98,9 @@ const Journal = ({ navigation }) => {
         </View>
         <View>
           <FlatList
-            data={DATA}
+            data={items}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.key}
             extraData={selectedId}
           />
         </View>
@@ -95,13 +114,19 @@ const Journal = ({ navigation }) => {
           <Button
             title="Post"
             onPress={() => {
-              GETDATA();
+              getValues();
             }}
           />
           <Button
             title="Entries"
             onPress={() => {
               navigation.navigate('JournalEntries');
+            }}
+          />
+          <Button
+            title="Clear"
+            onPress={() => {
+              clearAll();
             }}
           />
         </View>

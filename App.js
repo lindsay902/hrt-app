@@ -6,14 +6,10 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import SignUpScreen from './components/login/signup';
 import SignInScreen from './components/login/signinscreen';
 import Journal from './components/profile/journal/journal';
-import ProgressChartHRT from './components/profile/charts/progressChart';
 import LoginScreen from './components/login/login';
 import Home from './components/profile/home';
-import MySettings from './components/profile/settings';
 import CommunityFeed from './components/community/communityfeed';
 import JournalEntry from './components/profile/journal/journalEntryItem';
-import JournalEntries from './components/profile/journal/journalEntries';
-import CountdownTimer from './components/profile/charts/countdown';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
@@ -27,12 +23,13 @@ function Main() {
       initialRouteName="Home"
       activeColor="#e91e63"
       labelStyle={{ fontSize: 12 }}
-      barstyle={{ backgroundColor: 'black' }}
+      barstyle={{ backgroundColor: 'tomato' }}
     >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
+          headerShown: false,
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
@@ -65,7 +62,7 @@ function Main() {
 
 function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer mode="modal">
       <Stack.Navigator initialRouteName="SignInScreen">
         <Stack.Screen
           name="SignInScreen"
@@ -75,6 +72,7 @@ function App() {
         <Stack.Screen name="Home" component={Main} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="JournalEntry" component={JournalEntry} />
       </Stack.Navigator>
     </NavigationContainer>
   );
