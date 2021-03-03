@@ -11,9 +11,10 @@ import {
   StatusBar,
   TouchableOpacity,
   Button,
-  Modal,
 } from 'react-native';
 import JournalEntryScreen from '../../../Screens/JournalEntryScreen';
+import Modal from 'react-native-modal';
+import { set } from 'react-native-reanimated';
 
 const clearAll = async () => {
   try {
@@ -34,7 +35,7 @@ const Item = ({ item, onPress, style }) => (
 const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const [items, setItems] = useState([]);
-  const [entryVisability, setEntryVisibility] = useState({ show: false });
+  const [isEntryVisible, setEntryVisible] = useState(false);
 
   useEffect(() => {
     console.log('requestToServer');
@@ -78,12 +79,12 @@ const Journal = ({ navigation }) => {
     );
   };
 
-  const handleShowEntry = () => {
-    setEntryVisibility({ show: true });
+  const showEntry = () => {
+    setEntryVisible(true);
   };
 
   const closeEntry = () => {
-    setEntryVisibility({ show: false });
+    setEntryVisible(false);
   };
 
   return (
@@ -108,20 +109,10 @@ const Journal = ({ navigation }) => {
           />
         </View>
         <View style={styles.addEntryButton}>
-          <Button
-            title="Write"
-            onPress={() => {
-              handleShowEntry;
-            }}
-          />
-          <Modal show={handleShowEntry} onHide={closeEntry}>
-            <Modal.Header>Journal Entry</Modal.Header>
-            <Modal.Body>
-              <JournalEntryScreen />
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={closeEntry}>Close</Button>
-            </Modal.Footer>
+          <Button title="Write" onPress={showEntry} />
+          <Modal isVisible={isEntryVisible}>
+            <JournalEntryScreen />
+            <Button title="Close" onPress={closeEntry} />
           </Modal>
           <Button
             title="Render Post"
