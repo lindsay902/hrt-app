@@ -11,7 +11,9 @@ import {
   StatusBar,
   TouchableOpacity,
   Button,
+  Modal,
 } from 'react-native';
+import JournalEntryScreen from '../../../Screens/JournalEntryScreen';
 
 const clearAll = async () => {
   try {
@@ -29,24 +31,15 @@ const Item = ({ item, onPress, style }) => (
   </TouchableOpacity>
 );
 
-let timeElapsed = Date.now();
-let today = new Date(timeElapsed);
-const dateToday = today.toDateString();
-console.log(dateToday);
-
 const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const [items, setItems] = useState([]);
+  const [entryVisability, setEntryVisibility] = useState({ show: false });
 
   useEffect(() => {
-    const result = getValues();
-    setItems(result.items);
-  }, []);
-
-  let timeElapsed = Date.now();
-  let today = new Date(timeElapsed);
-  const dateToday = today.toDateString();
-  console.log(dateToday);
+    console.log('requestToServer');
+    getValues();
+  }, [selectedId]);
 
   const getValues = async () => {
     try {
@@ -54,7 +47,6 @@ const Journal = ({ navigation }) => {
         if (err) {
           return [];
         } else {
-          console.log(keys);
           return keys;
         }
       });
@@ -62,10 +54,11 @@ const Journal = ({ navigation }) => {
       value = value.map((result, i, store) => {
         let key = store[i][0];
         let entry = store[i][1];
+        entry = JSON.parse(entry);
         return {
           key: key,
-          date: dateToday,
-          entry: entry,
+          date: entry.date,
+          entry: entry.text,
         };
       });
       setItems(value);
@@ -80,8 +73,17 @@ const Journal = ({ navigation }) => {
         item={item}
         onPress={() => setSelectedId(item.key)}
         style={{ item }}
+        flex={1}
       />
     );
+  };
+
+  const handleShowEntry = () => {
+    setEntryVisibility({ show: true });
+  };
+
+  const closeEntry = () => {
+    setEntryVisibility({ show: false });
   };
 
   return (
@@ -102,25 +104,29 @@ const Journal = ({ navigation }) => {
             renderItem={renderItem}
             keyExtractor={(item) => item.key}
             extraData={selectedId}
+            ListFooterComponent={<View style={{ height: 20 }} />}
           />
         </View>
         <View style={styles.addEntryButton}>
           <Button
             title="Write"
             onPress={() => {
-              navigation.navigate('JournalEntry');
+              handleShowEntry;
             }}
           />
+          <Modal show={handleShowEntry} onHide={closeEntry}>
+            <Modal.Header>Journal Entry</Modal.Header>
+            <Modal.Body>
+              <JournalEntryScreen />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={closeEntry}>Close</Button>
+            </Modal.Footer>
+          </Modal>
           <Button
-            title="Post"
+            title="Render Post"
             onPress={() => {
               getValues();
-            }}
-          />
-          <Button
-            title="Entries"
-            onPress={() => {
-              navigation.navigate('JournalEntries');
             }}
           />
           <Button

@@ -1,14 +1,14 @@
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 
-const MySettings = () => {
+const Support = (props) => {
   return (
     <SafeAreaView>
       <View>
-        <Text>My settings</Text>
+        <Text>Support</Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default MySettings;
+export default Support;

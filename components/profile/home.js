@@ -1,7 +1,10 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { View, Button, StyleSheet, Image, SafeAreaView } from 'react-native';
-import CountdownTimer from './charts/countdown';
+import { View, StyleSheet, SafeAreaView, Image, Text } from 'react-native';
+import { Agenda, Calendar } from 'react-native-calendars';
+import Schedule from '../Calendar/calendar';
+import MyCalendar from '../Calendar/calendar';
+import CountdownTimer from './Charts/countdown';
 
 const Home = ({ navigation }) => {
   return (
@@ -12,40 +15,16 @@ const Home = ({ navigation }) => {
       end={{ x: 1, y: 1 }}
     >
       <SafeAreaView>
-        <View style={styles.container}>
+        <View style={styles.calendar}>
           <Image
-            source={require('../../assets/butterfly.png')}
-            style={styles.logo}
+            style={styles.calendarText}
+            source={require('../../assets/calendar.png')}
           />
-          <CountdownTimer />
-          <View style={styles.buttons}>
-            <Button
-              title="My Progress"
-              color="white"
-              onPress={() => navigation.navigate('ProgressChartHRT')}
-            />
-          </View>
-          <View style={styles.buttons}>
-            <Button
-              title="My Journal"
-              color="white"
-              onPress={() => navigation.navigate('Journal')}
-            />
-          </View>
-          <View style={styles.buttons}>
-            <Button
-              title="Community"
-              color="white"
-              onPress={() => navigation.navigate('CommunityFeed')}
-            />
-          </View>
-          <View style={styles.buttons}>
-            <Button
-              title="Profile"
-              color="white"
-              onPress={() => navigation.navigate('MySettings')}
-            />
-          </View>
+        </View>
+        <Schedule />
+        <View style={styles.container}>
+          <Text>My Hormone Levels</Text>
+          <Text>My Insights</Text>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -61,13 +40,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: 500,
-    height: 500,
+    height: 300,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   logo: {
     width: 100,
     height: 100,
+  },
+  calendar: {
+    alignItems: 'center',
+  },
+  calendarText: {
+    width: 150,
+    height: 75,
   },
   buttons: {
     paddingTop: 5,

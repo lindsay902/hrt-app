@@ -2,31 +2,42 @@ import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-gesture-handler';
-import createRandomId from '../../shared/createid';
+import createRandomId from '../../Shared/createid';
 
 const JournalEntry = () => {
-  const [post, setPost] = useState('');
+  const [postText, setPostText] = useState('');
 
-  const onChangeText = (text) => setPost(text);
+  const onChangeText = (text) => setPostText(text);
 
   const onSubmitEditing = () => {
-    if (!post) {
+    if (!postText) {
       return;
     } else {
-      storePosts(post);
-      setPost('');
+      storePosts(postText);
+      setPostText('');
     }
   };
 
   const storePosts = async () => {
     try {
+      let postToSave = {
+        text: postText,
+      };
+      let today = new Date(Date.now());
+      const dateToday = today.toDateString();
       let randomKey = createRandomId();
       randomKey = randomKey.toString();
-      await AsyncStorage.setItem(randomKey, post);
+      postToSave.date = dateToday;
+      await AsyncStorage.setItem(randomKey, JSON.stringify(postToSave));
       console.log('post saved');
     } catch (e) {
       console.log('Post did not save');
     }
+  };
+
+  const handlePost = async (navigation) => {
+    await storePosts();
+    //navigation.navigate('Journal');
   };
 
   return (
@@ -44,13 +55,7 @@ const JournalEntry = () => {
       />
       {}
       <View style={styles.button}>
-        <Button
-          title="Post"
-          color="white"
-          onPress={() => {
-            storePosts(post);
-          }}
-        />
+        <Button title="Post" color="white" onPress={handlePost} />
       </View>
     </View>
   );
