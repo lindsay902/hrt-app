@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-gesture-handler';
 import createRandomId from '../../Shared/createid';
+import { Image } from 'react-native';
+import { closeEntry } from '../Journal/journal';
 
 const JournalEntry = () => {
   const [postText, setPostText] = useState('');
@@ -37,17 +39,21 @@ const JournalEntry = () => {
 
   const handlePost = async (navigation) => {
     await storePosts();
+    closeEntry();
     //navigation.navigate('Journal');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Add a post:</Text>
+      <Image
+        style={styles.text}
+        source={require('../../../assets/makeapost.png')}
+      />
       {}
       <TextInput
         style={styles.textInput}
         multiline
-        numberOfLines={100}
+        numberOfLines={200}
         clearTextOnFocus
         placeholder="Your thoughts..."
         onChangeText={onChangeText}
@@ -65,8 +71,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     paddingTop: 10,
-    backgroundColor: 'lightpink',
+    backgroundColor: 'pink',
     padding: 8,
+    borderRadius: 10,
   },
   paragraph: {
     marginTop: 34,
@@ -76,8 +83,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   text: {
-    fontSize: 30,
-    fontWeight: 'bold',
+    // fontSize: 30,
+    // fontWeight: 'bold',
     marginTop: 30,
     marginBottom: 15,
   },

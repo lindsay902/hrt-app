@@ -14,23 +14,17 @@ import {
 } from 'react-native';
 import JournalEntryScreen from '../../../Screens/JournalEntryScreen';
 import Modal from 'react-native-modal';
-import { set } from 'react-native-reanimated';
+import { Icon } from 'react-native-elements';
+import { Alert } from 'react-native';
 
-const clearAll = async () => {
-  try {
-    await AsyncStorage.clear();
-  } catch (e) {
-    console.log('Could not delete');
-  }
-  console.log('Done.');
-};
-
-const Item = ({ item, onPress, style }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-    <Text style={styles.date}>{item.date}</Text>
-    <Text style={styles.entry}>{item.entry}</Text>
-  </TouchableOpacity>
-);
+// const clearAll = async () => {
+//   try {
+//     await AsyncStorage.clear();
+//   } catch (e) {
+//     console.log('Could not delete');
+//   }
+//   console.log('Done.');
+// };
 
 const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
@@ -40,7 +34,7 @@ const Journal = ({ navigation }) => {
   useEffect(() => {
     console.log('requestToServer');
     getValues();
-  }, [selectedId]);
+  }, []);
 
   const getValues = async () => {
     try {
@@ -68,6 +62,24 @@ const Journal = ({ navigation }) => {
     }
   };
 
+  const Item = ({ item, onPress, style }) => (
+    <View style={[styles.item, style]}>
+      <TouchableOpacity
+        onPress={() => removeValue(item.key)}
+        style={{ marginHorizontal: -15, marginTop: -15 }}
+      >
+        <Icon
+          style={styles.trashButton}
+          name={'delete'}
+          color={'black'}
+          size={20}
+        />
+      </TouchableOpacity>
+      <Text style={styles.date}>{item.date}</Text>
+      <Text style={styles.entry}>{item.entry}</Text>
+    </View>
+  );
+
   const renderItem = ({ item }) => {
     return (
       <Item
@@ -77,6 +89,16 @@ const Journal = ({ navigation }) => {
         flex={1}
       />
     );
+  };
+
+  const removeValue = async (itemId) => {
+    Alert.alert('Are you sure you want to delete this post?');
+    try {
+      await AsyncStorage.removeItem(itemId);
+    } catch (err) {
+      console.log('error');
+    }
+    console.log('Done.');
   };
 
   const showEntry = () => {
@@ -93,11 +115,30 @@ const Journal = ({ navigation }) => {
       style={styles.backgroundImage}
     >
       <SafeAreaView>
-        <View style={styles.search}>
-          <Image source={require('../../../assets/search.png')} />
-        </View>
         <View style={styles.header}>
           <Image source={require('../../../assets/journal.png')} />
+        </View>
+        <View style={styles.addEntryButton}>
+          <Icon
+            reverse
+            name="pen-plus"
+            type="material-community"
+            color="black"
+            size={30}
+            onPress={showEntry}
+          />
+          <Modal isVisible={isEntryVisible}>
+            <Button title="Close" onPress={closeEntry} />
+            <JournalEntryScreen />
+          </Modal>
+        </View>
+        <View style={styles.addEntryButton}>
+          <Button
+            title="Refresh Entries"
+            onPress={() => {
+              getValues();
+            }}
+          />
         </View>
         <View>
           <FlatList
@@ -106,25 +147,6 @@ const Journal = ({ navigation }) => {
             keyExtractor={(item) => item.key}
             extraData={selectedId}
             ListFooterComponent={<View style={{ height: 20 }} />}
-          />
-        </View>
-        <View style={styles.addEntryButton}>
-          <Button title="Write" onPress={showEntry} />
-          <Modal isVisible={isEntryVisible}>
-            <JournalEntryScreen />
-            <Button title="Close" onPress={closeEntry} />
-          </Modal>
-          <Button
-            title="Render Post"
-            onPress={() => {
-              getValues();
-            }}
-          />
-          <Button
-            title="Clear"
-            onPress={() => {
-              clearAll();
-            }}
           />
         </View>
       </SafeAreaView>
@@ -144,8 +166,8 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'flex-start',
     alignSelf: 'center',
-    paddingTop: 10,
-    paddingBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 15,
   },
   container: {
     flex: 1,
@@ -160,6 +182,9 @@ const styles = StyleSheet.create({
     padding: 40,
     marginVertical: 8,
     marginHorizontal: 20,
+  },
+  trashButton: {
+    alignSelf: 'flex-end',
   },
   sectionHeader: {
     fontSize: 20,
@@ -182,7 +207,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   addEntryButton: {
-    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
