@@ -50,17 +50,18 @@ export default function MyPhotos() {
         <View
           style={{
             flex: 1,
-            backgroundColor: '#fff',
+            backgroundColor: 'lightpink',
             justifyContent: 'center',
             alignItems: 'center',
           }}
         >
+          <Text>My Progress Photos</Text>
           <TouchableOpacity
             onPress={() => setStartOver(false)}
             style={{
               width: 130,
               borderRadius: 4,
-              backgroundColor: '#14274e',
+              backgroundColor: 'black',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
@@ -77,6 +78,9 @@ export default function MyPhotos() {
               Take picture
             </Text>
           </TouchableOpacity>
+          <View>
+            <Text>Flatlist</Text>
+          </View>
         </View>
       ) : (
         <View

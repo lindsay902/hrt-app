@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Logo from '../components/Shared/logo';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Home from '../components/Profile/home';
-import JournalEntryScreen from './JournalEntryScreen';
 
 const HomeStack = createStackNavigator();
 

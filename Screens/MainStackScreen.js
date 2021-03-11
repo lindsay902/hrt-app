@@ -5,6 +5,7 @@ import HomeStackScreen from './HomeStackScreen';
 import MyPhotos from '../components/Profile/Photos/photos';
 import Journal from '../components/Profile/Journal/journal';
 import CommunityFeed from '../components/Community/communityfeed';
+import ResourcesScreen from './ResourcesScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -15,7 +16,7 @@ function Main() {
         name="Home"
         component={HomeStackScreen}
         // eslint-disable-next-line react-native/no-inline-styles
-        barStyle={{ paddingBottom: 30, paddingTop: 10 }}
+        barStyle={{ paddingBottom: 35, paddingTop: 10 }}
         options={{
           tabBarLabel: 'Home',
           tabBarColor: 'black',
@@ -48,7 +49,7 @@ function Main() {
       />
       <Tab.Screen
         name="CommunityFeed"
-        component={CommunityFeed}
+        component={ResourcesScreen}
         options={{
           tabBarLabel: 'Resources',
           tabBarColor: '#d02860',

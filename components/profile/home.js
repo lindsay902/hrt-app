@@ -1,12 +1,21 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Image, Text } from 'react-native';
-import { Agenda, Calendar } from 'react-native-calendars';
 import Schedule from '../Calendar/calendar';
-import MyCalendar from '../Calendar/calendar';
-import CountdownTimer from './Charts/countdown';
+import AnimatedNumber from 'react-native-animated-numbers';
+import { Icon } from 'react-native-elements';
 
 const Home = ({ navigation }) => {
+  const [animateToNumber, setAnimateToNumber] = useState(100);
+
+  const increase = () => {
+    setAnimateToNumber(animateToNumber + 1);
+  };
+
+  const decrease = () => {
+    setAnimateToNumber(animateToNumber - 1);
+  };
+
   return (
     <LinearGradient
       colors={['#55CDFC', 'white', '#F7A8B8']}
@@ -23,8 +32,36 @@ const Home = ({ navigation }) => {
         </View>
         <Schedule />
         <View style={styles.container}>
-          <Text>My Hormone Levels</Text>
-          <Text>My Insights</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View
+              style={{
+                flexgrow: 1,
+                marginLeft: 35,
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <AnimatedNumber
+                animateToNumber={animateToNumber}
+                fontStyle={{ fontSize: 50, fontWeight: 'bold' }}
+              />
+              <View style={{ flexDirection: 'row' }}>
+                <Icon
+                  reverse
+                  name="fa-arrow-down"
+                  type="font-awesome"
+                  onPress={decrease}
+                  size={15}
+                />
+                <Icon reverse name="add" onPress={increase} size={15} />
+              </View>
+            </View>
+            <Text style={{ flexGrow: 2 }}>Future Carousel</Text>
+          </View>
+          <View style={{ flexDirection: 'row', marginTop: -20 }}>
+            <Text style={{ flexGrow: 1, marginLeft: 25 }}>My Insights</Text>
+            <Text style={{ flexGrow: 2 }}>Future Carousel</Text>
+          </View>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -41,8 +78,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 500,
     height: 300,
+    marginLeft: 20,
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    marginTop: -30,
   },
   logo: {
     width: 100,
