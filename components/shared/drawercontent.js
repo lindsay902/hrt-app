@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Avatar, Title, Caption, Paragraph, Drawer } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AuthContext } from '../Context/context';
 
 const NavDrawer = (props) => {
+  const { signOut } = useContext(AuthContext);
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -83,7 +86,7 @@ const NavDrawer = (props) => {
             <Icon name="exit-to-app" color={color} size={size} />
           )}
           label="Log Out"
-          onPress={() => {}}
+          onPress={signOut}
         />
       </Drawer.Section>
     </View>

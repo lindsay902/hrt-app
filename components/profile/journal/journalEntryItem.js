@@ -44,7 +44,7 @@ const JournalEntry = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.modalContainer}>
       <Image
         style={styles.text}
         source={require('../../../assets/makeapost.png')}
@@ -67,7 +67,7 @@ const JournalEntry = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
+  modalContainer: {
     flex: 1,
     justifyContent: 'flex-start',
     paddingTop: 10,

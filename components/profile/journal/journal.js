@@ -12,10 +12,12 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-import JournalEntryScreen from '../../../Screens/JournalEntryScreen';
 import Modal from 'react-native-modal';
 import { Icon } from 'react-native-elements';
 import { Alert } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import createRandomId from '../../Shared/createid';
+import { RefreshControl } from 'react-native';
 
 // const clearAll = async () => {
 //   try {
@@ -30,11 +32,48 @@ const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
   const [items, setItems] = useState([]);
   const [isEntryVisible, setEntryVisible] = useState(false);
+  const [postText, setPostText] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     console.log('requestToServer');
     getValues();
   }, []);
+
+  //maybe combine the two below
+  const onChangeText = (text) => setPostText(text);
+
+  const onSubmitEditing = () => {
+    if (!postText) {
+      return;
+    } else {
+      storePosts(postText);
+      setPostText('');
+    }
+  };
+
+  const storePosts = async () => {
+    try {
+      let postToSave = {
+        text: postText,
+      };
+      let today = new Date(Date.now());
+      const dateToday = today.toDateString();
+      let randomKey = createRandomId();
+      randomKey = randomKey.toString();
+      postToSave.date = dateToday;
+      await AsyncStorage.setItem(randomKey, JSON.stringify(postToSave));
+      console.log('post saved');
+    } catch (e) {
+      console.log('Post did not save');
+    }
+  };
+
+  const handlePost = async (navigation) => {
+    await storePosts();
+    closeEntry();
+    //navigation.navigate('Journal');
+  };
 
   const getValues = async () => {
     try {
@@ -86,19 +125,24 @@ const Journal = ({ navigation }) => {
         item={item}
         onPress={() => setSelectedId(item.key)}
         style={{ item }}
-        flex={1}
       />
     );
   };
 
   const removeValue = async (itemId) => {
-    Alert.alert('Are you sure you want to delete this post?');
-    try {
-      await AsyncStorage.removeItem(itemId);
-    } catch (err) {
-      console.log('error');
-    }
-    console.log('Done.');
+    Alert.alert(
+      'Delete post?',
+      'Confirm post deletion',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => AsyncStorage.removeItem(itemId) },
+      ],
+      { cancelable: false },
+    );
   };
 
   const showEntry = () => {
@@ -128,25 +172,45 @@ const Journal = ({ navigation }) => {
             onPress={showEntry}
           />
           <Modal isVisible={isEntryVisible}>
-            <Button title="Close" onPress={closeEntry} />
-            <JournalEntryScreen />
+            <View style={styles.modalContainer}>
+              <Icon
+                name="close"
+                color={'hotpink'}
+                reverse
+                style={styles.closeModalButton}
+                onPress={closeEntry}
+              />
+              <TextInput
+                style={styles.textInput}
+                returnKeyType={'next'}
+                multiline={true}
+                numberOfLines={200}
+                placeholder="Your thoughts..."
+                onChangeText={onChangeText}
+              />
+              {}
+              <View style={styles.button}>
+                <Button
+                  type="submit"
+                  title="Post"
+                  color="white"
+                  onSubmitEditing={onSubmitEditing}
+                  onPress={handlePost}
+                />
+              </View>
+            </View>
           </Modal>
-        </View>
-        <View style={styles.addEntryButton}>
-          <Button
-            title="Refresh Entries"
-            onPress={() => {
-              getValues();
-            }}
-          />
         </View>
         <View>
           <FlatList
             data={items}
             renderItem={renderItem}
             keyExtractor={(item) => item.key}
-            extraData={selectedId}
-            ListFooterComponent={<View style={{ height: 20 }} />}
+            initialNumToRender={5}
+            persistentScrollbar
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={getValues} />
+            }
           />
         </View>
       </SafeAreaView>
@@ -157,11 +221,7 @@ const Journal = ({ navigation }) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
-  },
-  search: {
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-end',
+    resizeMode: 'repeat',
   },
   header: {
     justifyContent: 'flex-start',
@@ -170,12 +230,9 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
     marginHorizontal: 16,
   },
   item: {
-    flex: 1,
     flexDirection: 'column',
     backgroundColor: 'rgba(247, 168, 184, 0.3)',
     borderRadius: 10,
@@ -208,6 +265,43 @@ const styles = StyleSheet.create({
   },
   addEntryButton: {
     alignItems: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 8,
+    borderRadius: 10,
+    marginBottom: 150,
+  },
+  paragraph: {
+    marginTop: 34,
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  text: {
+    // fontSize: 30,
+    // fontWeight: 'bold',
+    marginTop: 30,
+    marginBottom: 15,
+  },
+  textInput: {
+    height: 250,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    padding: 4,
+    marginTop: 10,
+  },
+  button: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    backgroundColor: 'black',
+    borderRadius: 10,
   },
 });
 
