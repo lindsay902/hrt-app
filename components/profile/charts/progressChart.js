@@ -1,62 +1,81 @@
 import React from 'react';
-import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts';
+import * as shape from 'd3-shape';
+import { Grid, StackedAreaChart, XAxis, YAxis } from 'react-native-svg-charts';
 import { View } from 'react-native';
 
 class ProgressChartHRT extends React.PureComponent {
   render() {
     const data = [
-      50,
-      10,
-      40,
-      95,
-      -4,
-      -24,
-      85,
-      91,
-      35,
-      53,
-      -53,
-      24,
-      50,
-      -20,
-      -80,
+      {
+        month: new Date(2015, 0, 1),
+        estrogen: 3840,
+        testosterone: 1920,
+        potassium: 960,
+      },
+      {
+        month: new Date(2015, 1, 1),
+        estrogen: 1600,
+        testosterone: 1440,
+        potassium: 960,
+      },
+      {
+        month: new Date(2015, 2, 1),
+        estrogen: 640,
+        testosterone: 960,
+        potassium: 3640,
+      },
+      {
+        month: new Date(2015, 3, 1),
+        estrogen: 3320,
+        testosterone: 480,
+        potassium: 640,
+      },
     ];
 
-    const axesSvg = { fontSize: 10, fill: 'grey' };
-    const verticalContentInset = { top: 10, bottom: 10 };
-    const xAxisHeight = 30;
-
-    // Layout of an x-axis together with a y-axis is a problem that stems from flexbox.
-    // All react-native-svg-charts components support full flexbox and therefore all
-    // layout problems should be approached with the mindset "how would I layout regular Views with flex in this way".
-    // In order for us to align the axes correctly we must know the height of the x-axis or the width of the x-axis
-    // and then displace the other axis with just as many pixels. Simple but manual.
+    const colors = ['#8800cc', '#aa00ff', '#cc66ff'];
+    const keys = ['estrogen', 'testosterone', 'potassium'];
+    const months = ['January', 'February', 'March'];
+    const svgs = [
+      { onPress: () => console.log('apples') },
+      { onPress: () => console.log('bananas') },
+      { onPress: () => console.log('cherries') },
+    ];
 
     return (
-      <View style={{ height: 200, padding: 20, flexDirection: 'row' }}>
-        <YAxis
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 200,
+          marginLeft: 55,
+          marginRight: 55,
+          marginTop: 20,
+          backgroundColor: 'white',
+        }}
+      >
+        <StackedAreaChart
+          style={{ flex: 1, paddingTop: 15, paddingBottom: -20 }}
+          contentInset={{ top: 10, bottom: 10 }}
           data={data}
-          style={{ marginBottom: xAxisHeight }}
-          contentInset={verticalContentInset}
-          svg={axesSvg}
+          keys={keys}
+          colors={colors}
+          months={months}
+          curve={shape.curveNatural}
+        >
+          <Grid />
+        </StackedAreaChart>
+        <YAxis
+          style={{ position: 'absolute', top: 0, bottom: 0 }}
+          data={StackedAreaChart.extractDataPoints(data, keys)}
+          contentInset={{ top: 10, bottom: 10 }}
+          svg={{
+            fontSize: 8,
+            fill: 'white',
+            stroke: 'black',
+            strokeWidth: 0.1,
+            alignmentBaseline: 'baseline',
+            baselineShift: '3',
+          }}
         />
-        <View style={{ flex: 1, marginLeft: 10 }}>
-          <LineChart
-            style={{ flex: 1 }}
-            data={data}
-            contentInset={verticalContentInset}
-            svg={{ stroke: 'rgb(134, 65, 244)' }}
-          >
-            <Grid />
-          </LineChart>
-          <XAxis
-            style={{ marginHorizontal: -10, height: xAxisHeight }}
-            data={data}
-            formatLabel={(value, index) => index}
-            contentInset={{ left: 10, right: 10 }}
-            svg={axesSvg}
-          />
-        </View>
       </View>
     );
   }

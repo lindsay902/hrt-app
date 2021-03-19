@@ -1,12 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Image, Text } from 'react-native';
-import Schedule from '../Calendar/calendar';
 import AnimatedNumber from 'react-native-animated-numbers';
 import { Icon } from 'react-native-elements';
+import ProgressChartHRT from './Charts/progressChart';
+import { useFonts } from 'expo-font';
 
 const Home = ({ navigation }) => {
   const [animateToNumber, setAnimateToNumber] = useState(100);
+  const [loaded] = useFonts({
+    HandleeRegular: require('../../assets/fonts/Handlee-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   const increase = () => {
     setAnimateToNumber(animateToNumber + 1);
@@ -24,13 +32,8 @@ const Home = ({ navigation }) => {
       end={{ x: 1, y: 1 }}
     >
       <SafeAreaView>
-        <View style={styles.calendar}>
-          <Image
-            style={styles.calendarText}
-            source={require('../../assets/calendar.png')}
-          />
-        </View>
-        <Schedule />
+        <Text style={styles.textStyle}>My Hormone Levels</Text>
+        <ProgressChartHRT />
         <View style={styles.container}>
           <View style={{ flexDirection: 'row' }}>
             <View
@@ -101,6 +104,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     backgroundColor: 'black',
     borderRadius: 10,
+  },
+  textStyle: {
+    fontFamily: 'HandleeRegular',
+    fontSize: 30,
+    marginBottom: -30,
+    alignSelf: 'center',
+    paddingBottom: 10,
   },
 });
 

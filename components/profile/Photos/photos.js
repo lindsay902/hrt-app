@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   ImageBackground,
+  Image,
+  Platform,
 } from 'react-native';
 import { Camera } from 'expo-camera';
-import { FlatList } from 'react-native-gesture-handler';
-import { Image } from 'react-native';
-import { Button } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
+import * as MediaLibrary from 'expo-media-library';
+import * as Permissions from 'expo-permissions';
+import { SafeAreaView } from 'react-native';
+import { useFonts } from 'expo-font';
+import { Icon } from 'react-native-elements';
+import { FlatList } from 'react-native-gesture-handler';
 
 const tag = '[CAMERA]';
+
 export default function MyPhotos() {
   const [hasPermission, setHasPermission] = useState(null);
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -23,6 +28,7 @@ export default function MyPhotos() {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [data, setData] = useState();
   const [image, setImage] = useState(null);
+
   let camera = Camera;
 
   useEffect(() => {
@@ -36,16 +42,20 @@ export default function MyPhotos() {
     setStartOver(true);
   };
   const __takePicture = async () => {
-    if (!camera) {
+    if (!camera && hasPermission !== 'granted') {
       return;
+    } else if (hasPermission === 'granted!') {
+      let photo = await camera.takePictureAsync();
+      console.log('photo', photo);
+      setPreviewVisible(true);
     }
-    const photo = await camera.takePictureAsync();
-    console.log(photo);
-    setPreviewVisible(true);
-    setCapturedImage(photo);
   };
+
   const __savePhoto = async (photo) => {
-    setData(photo);
+    //setImage(photo);
+    const asset = await MediaLibrary.saveToLibraryAsync(uri);
+    // console.log(`Here are the images ${image}`);
+    // console.log(image.uri);
   };
 
   useEffect(() => {
@@ -76,56 +86,78 @@ export default function MyPhotos() {
     }
   };
 
+  const [loaded] = useFonts({
+    HandleeRegular: require('../../../assets/fonts/Handlee-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
+  const renderItem = ({ item, index }) => (
+    <View>
+      <Image
+        key={index}
+        source={{ uri: image }}
+        style={{ width: 200, height: 200 }}
+      />
+    </View>
+  );
+
   return (
     <View style={{ flex: 1 }}>
-      {startOver ? (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>My Progress Photos</Text>
-          <TouchableOpacity
-            onPress={() => setStartOver(false)}
+      <SafeAreaView
+        style={{ borderBottomColor: 'black', borderBottomWidth: 1 }}
+      >
+        <View style={styles.header}>
+          <Text
             style={{
-              width: 130,
-              borderRadius: 4,
-              backgroundColor: 'black',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 40,
+              fontFamily: 'HandleeRegular',
+              fontSize: 25,
+              paddingTop: 10,
             }}
           >
-            <Text
-              style={{
-                color: '#fff',
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}
-            >
-              Take picture
-            </Text>
-          </TouchableOpacity>
-          <View>
-            <Text>Flatlist</Text>
-          </View>
-          <View>
-            <Button
-              title="Pick an image from camera roll"
-              onPress={pickImage}
-              color="black"
-            >
-              {image && (
-                <Image
-                  source={{ uri: image }}
-                  style={{ width: 200, height: 200 }}
-                />
-              )}
-            </Button>
-          </View>
+            Timeline Photos
+          </Text>
+          <Text>@username</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            paddingRight: 10,
+            marginTop: -50,
+          }}
+        >
+          <Icon
+            reverse
+            name="camera-plus"
+            type="material-community"
+            color="#F7A8B8"
+            size={20}
+            onPress={() => setStartOver(false)}
+          />
+          <Icon
+            reverse
+            name="upload"
+            type="material-community"
+            color="#F7A8B8"
+            size={20}
+            onPress={pickImage}
+          />
+        </View>
+      </SafeAreaView>
+      {startOver ? (
+        <View style={{ flex: 1, backgroundColor: 'lightgrey' }}>
+          <FlatList
+            data={image}
+            renderItem={renderItem}
+            keyExtractor={(id) => {
+              id.toString();
+            }}
+            numColumns={2}
+            initialNumToRender={10}
+          />
         </View>
       ) : (
         <View
@@ -189,7 +221,7 @@ export default function MyPhotos() {
                         fontSize: 20,
                       }}
                     >
-                      save photo
+                      Save Photo
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -288,6 +320,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  header: {
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    paddingLeft: 10,
   },
   takePicture: {
     width: 70,

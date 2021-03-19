@@ -1,25 +1,40 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import CommunityFeed from '../components/Community/communityfeed';
+import { useFonts } from 'expo-font';
 
 const ResourcesScreen = () => {
+  const [loaded] = useFonts({
+    HandleeRegular: require('../assets/fonts/Handlee-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'lightblue' }}>
+    <View style={{ flex: 1, backgroundColor: 'lightblue' }}>
+      <SafeAreaView>
+        <View style={styles.title}>
+          <Text style={styles.textStyle}>Books & Podcasts</Text>
+        </View>
+      </SafeAreaView>
       <View style={{ flex: 1 }}>
-        <Image
-          style={styles.title}
-          source={require('../assets/booksandpodcasts.png')}
-        />
         <CommunityFeed />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
+  },
+  textStyle: {
+    fontFamily: 'HandleeRegular',
+    fontSize: 30,
+    marginBottom: -30,
   },
 });
 

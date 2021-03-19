@@ -61,6 +61,15 @@ const NavDrawer = (props) => {
             />
             <DrawerItem
               icon={({ color, size }) => (
+                <Icon name="pharmacy" color={color} size={size} />
+              )}
+              label="Health"
+              onPress={() => {
+                props.navigation.navigate('SettingsStackScreen');
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
                 <Icon name="wrench" color={color} size={size} />
               )}
               label="Settings"

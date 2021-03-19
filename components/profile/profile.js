@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
-import Icon from 'react-native-fontawesome';
+import { Icon } from 'react-native-elements';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-//import Feather from 'react-native-vector-icons/Feather';
 
 const Profile = () => {
   return (
@@ -37,6 +35,7 @@ const Profile = () => {
               >
                 <Icon
                   name="camera"
+                  type="material-community"
                   size={35}
                   color="#fff"
                   style={{
@@ -57,7 +56,7 @@ const Profile = () => {
         </Text>
       </View>
       <View style={styles.action}>
-        <FontAwesome name="user-o" size={20} />
+        <Icon name="account" size={20} type="material-community" />
         <TextInput
           placeholder="First Name"
           placeholderTextColor="#666666"
@@ -66,7 +65,7 @@ const Profile = () => {
         />
       </View>
       <View style={styles.action}>
-        <FontAwesome name="user-o" size={20} />
+        <Icon name="account" size={20} type="material-community" />
         <TextInput
           placeholder="Last Name"
           placeholderTextColor="#666666"
@@ -75,21 +74,22 @@ const Profile = () => {
         />
       </View>
       <View style={styles.action}>
-        <FontAwesome name="envelope-o" size={20} />
+        <Icon name="at" size={20} type="material-community" />
         <TextInput
-          placeholder="Email"
+          placeholder="Username"
           keyboardType="email-address"
           placeholderTextColor="#666666"
           autoCompleteType={false}
           style={styles.textInput}
         />
       </View>
-      <View>
-        <Icon name="map-marker-outline" size={20} />
+      <View style={styles.action}>
+        <Icon name="email" size={20} type="material-community" />
         <TextInput
-          placeholder="City"
+          placeholder="Email"
+          keyboardType="email-address"
           placeholderTextColor="#666666"
-          autoCorrect={false}
+          autoCompleteType={false}
           style={styles.textInput}
         />
       </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#F7A8B8',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 30,
   },
   panel: {
     padding: 20,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#F7A8B8',
     alignItems: 'center',
-    marginVertical: 7,
+    marginLeft: 20,
   },
   panelButtonTitle: {
     fontSize: 17,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   },
   action: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',

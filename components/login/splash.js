@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
 
-const LoginScreen = ({ navigation }) => {
+const SplashScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default SplashScreen;

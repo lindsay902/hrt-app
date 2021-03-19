@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   textFooter: {
-    color: '#05375a',
+    color: 'black',
     fontSize: 18,
   },
   action: {

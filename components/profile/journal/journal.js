@@ -3,12 +3,10 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   ImageBackground,
-  Image,
   StyleSheet,
   Text,
   SafeAreaView,
   FlatList,
-  StatusBar,
   TouchableOpacity,
   Button,
 } from 'react-native';
@@ -18,15 +16,7 @@ import { Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import createRandomId from '../../Shared/createid';
 import { RefreshControl } from 'react-native';
-
-// const clearAll = async () => {
-//   try {
-//     await AsyncStorage.clear();
-//   } catch (e) {
-//     console.log('Could not delete');
-//   }
-//   console.log('Done.');
-// };
+import { useFonts } from 'expo-font';
 
 const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
@@ -34,6 +24,12 @@ const Journal = ({ navigation }) => {
   const [isEntryVisible, setEntryVisible] = useState(false);
   const [postText, setPostText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
+
+  const dataPosts = items.sort(function (a, b) {
+    var c = new Date(a.date);
+    var d = new Date(b.date);
+    return d - c;
+  });
 
   useEffect(() => {
     console.log('requestToServer');
@@ -69,10 +65,9 @@ const Journal = ({ navigation }) => {
     }
   };
 
-  const handlePost = async (navigation) => {
+  const handlePost = async () => {
     await storePosts();
     closeEntry();
-    //navigation.navigate('Journal');
   };
 
   const getValues = async () => {
@@ -153,6 +148,14 @@ const Journal = ({ navigation }) => {
     setEntryVisible(false);
   };
 
+  const [loaded] = useFonts({
+    HandleeRegular: require('../../../assets/fonts/Handlee-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <ImageBackground
       source={require('../../../assets/journalbackground.png')}
@@ -160,60 +163,63 @@ const Journal = ({ navigation }) => {
     >
       <SafeAreaView>
         <View style={styles.header}>
-          <Image source={require('../../../assets/journal.png')} />
-        </View>
-        <View style={styles.addEntryButton}>
-          <Icon
-            reverse
-            name="pen-plus"
-            type="material-community"
-            color="black"
-            size={30}
-            onPress={showEntry}
-          />
-          <Modal isVisible={isEntryVisible}>
-            <View style={styles.modalContainer}>
-              <Icon
-                name="close"
-                color={'hotpink'}
-                reverse
-                style={styles.closeModalButton}
-                onPress={closeEntry}
-              />
-              <TextInput
-                style={styles.textInput}
-                returnKeyType={'next'}
-                multiline={true}
-                numberOfLines={200}
-                placeholder="Your thoughts..."
-                onChangeText={onChangeText}
-              />
-              {}
-              <View style={styles.button}>
-                <Button
-                  type="submit"
-                  title="Post"
-                  color="white"
-                  onSubmitEditing={onSubmitEditing}
-                  onPress={handlePost}
-                />
-              </View>
-            </View>
-          </Modal>
-        </View>
-        <View>
-          <FlatList
-            data={items}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.key}
-            initialNumToRender={5}
-            persistentScrollbar
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={getValues} />
-            }
-          />
+          <Text style={{ fontFamily: 'HandleeRegular', fontSize: 30 }}>
+            My Journal
+          </Text>
         </View>
       </SafeAreaView>
+      <View style={styles.addEntryButton}>
+        <Icon
+          reverse
+          name="pen-plus"
+          type="material-community"
+          color="black"
+          size={30}
+          onPress={showEntry}
+        />
+        <Modal isVisible={isEntryVisible}>
+          <View style={styles.modalContainer}>
+            <Icon
+              name="close"
+              color={'hotpink'}
+              reverse
+              style={styles.closeModalButton}
+              onPress={closeEntry}
+            />
+            <TextInput
+              style={styles.textInput}
+              returnKeyType={'next'}
+              multiline={true}
+              numberOfLines={200}
+              placeholder="Your thoughts..."
+              onChangeText={onChangeText}
+            />
+            {}
+            <View style={styles.button}>
+              <Button
+                type="submit"
+                title="Post"
+                color="white"
+                onSubmitEditing={onSubmitEditing}
+                onPress={handlePost}
+              />
+            </View>
+          </View>
+        </Modal>
+      </View>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          contentContainerStyle={{ paddingBottom: 40 }}
+          data={dataPosts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.key}
+          initialNumToRender={5}
+          persistentScrollbar
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getValues} />
+          }
+        />
+      </View>
     </ImageBackground>
   );
 };
@@ -259,6 +265,7 @@ const styles = StyleSheet.create({
   },
   entry: {
     fontSize: 14,
+    fontFamily: 'HandleeRegular',
   },
   flatlistStyle: {
     flexDirection: 'row',

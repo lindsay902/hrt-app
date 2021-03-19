@@ -43,7 +43,7 @@ const Schedule = () => {
 
   const renderItem = (item) => {
     return (
-      <TouchableOpacity style={{ marginTop: 17 }}>
+      <TouchableOpacity style={{ marginTop: 17, marginRight: 30 }}>
         <Card>
           <Card.Content>
             <View
@@ -62,7 +62,7 @@ const Schedule = () => {
   };
 
   return (
-    <View style={{ flex: 1, marginRight: 25, marginLeft: 25 }}>
+    <View style={{ flex: 1, marginRight: 40, marginLeft: 40 }}>
       <Agenda
         items={items}
         minDate={'2021-01-01'}
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     marginTop: 200,
   },
   modalView: {
+    flex: 1,
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
