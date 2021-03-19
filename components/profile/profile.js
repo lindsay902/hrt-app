@@ -1,101 +1,152 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { View, ImageBackground, StyleSheet, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 const Profile = () => {
+  const bs = createRef();
+  const fall = new Animated.Value(1);
+
+  const renderContent = () => (
+    <View style={styles.panel}>
+      <View style={{ alignItems: 'center' }}>
+        <Text style={styles.panelTitle}>Upload Photo</Text>
+        <Text style={styles.panelSubtitle}>Choose a Profile Picture</Text>
+      </View>
+      <TouchableOpacity style={styles.panelButton}>
+        <Text style={styles.panelButtonTitle}>Take Photo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.panelButton}>
+        <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.panelButtonLast}
+        onPress={() => bs.current.snapTo(0)}
+      >
+        <Text style={styles.panelButtonTitle}>Cancel</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderHeader = () => (
+    <View style={styles.header}>
+      <View style={styles.panelHeader}>
+        <View style={styles.panelHeader} />
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => {}}>
-          <View
-            style={{
-              height: 100,
-              width: 100,
-              borderRadius: 15,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 15,
-            }}
-          >
-            <ImageBackground
-              source={require('../../assets/kitty.jpg')}
+      <BottomSheet
+        ref={bs}
+        snapPoints={[0, 410]}
+        renderContent={renderContent}
+        renderHeader={renderHeader}
+        initialSnap={0}
+        callbackNode={fall}
+        enabledGestureInteraction={true}
+        enabledContentTapInteraction={false}
+      />
+      <Animated.View
+        style={{
+          margin: 20,
+          opacity: Animated.add(0.4, Animated.multiply(fall, 1.0)),
+        }}
+      >
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity onPress={() => bs.current.snapTo(1)}>
+            <View
               style={{
                 height: 100,
                 width: 100,
+                borderRadius: 15,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 15,
               }}
-              imageStyle={{ borderRadius: 15 }}
             >
-              <View
+              <ImageBackground
+                source={require('../../assets/kitty.jpg')}
                 style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  height: 100,
+                  width: 100,
                 }}
+                imageStyle={{ borderRadius: 15 }}
               >
-                <Icon
-                  name="camera"
-                  type="material-community"
-                  size={35}
-                  color="#fff"
+                <View
                   style={{
-                    opacity: 0.7,
-                    alignItems: 'center',
+                    flex: 1,
                     justifyContent: 'center',
-                    borderWidth: 1,
-                    borderColor: '#fff',
-                    borderRadius: 10,
+                    alignItems: 'center',
                   }}
-                />
-              </View>
-            </ImageBackground>
-          </View>
+                >
+                  <Icon
+                    name="camera"
+                    type="material-community"
+                    size={35}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              </ImageBackground>
+            </View>
+          </TouchableOpacity>
+          <Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>
+            Kitty Pryde
+          </Text>
+        </View>
+        <View style={styles.action}>
+          <Icon name="account" size={20} type="material-community" />
+          <TextInput
+            placeholder="First Name"
+            placeholderTextColor="#666666"
+            autoCompleteType={false}
+            style={styles.textInput}
+          />
+        </View>
+        <View style={styles.action}>
+          <Icon name="account" size={20} type="material-community" />
+          <TextInput
+            placeholder="Last Name"
+            placeholderTextColor="#666666"
+            autoCompleteType={false}
+            style={styles.textInput}
+          />
+        </View>
+        <View style={styles.action}>
+          <Icon name="at" size={20} type="material-community" />
+          <TextInput
+            placeholder="Username"
+            keyboardType="email-address"
+            placeholderTextColor="#666666"
+            autoCompleteType={false}
+            style={styles.textInput}
+          />
+        </View>
+        <View style={styles.action}>
+          <Icon name="email" size={20} type="material-community" />
+          <TextInput
+            placeholder="Email"
+            keyboardType="email-address"
+            placeholderTextColor="#666666"
+            autoCompleteType={false}
+            style={styles.textInput}
+          />
+        </View>
+        <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
+          <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
-        <Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>
-          Kitty Pryde
-        </Text>
-      </View>
-      <View style={styles.action}>
-        <Icon name="account" size={20} type="material-community" />
-        <TextInput
-          placeholder="First Name"
-          placeholderTextColor="#666666"
-          autoCompleteType={false}
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.action}>
-        <Icon name="account" size={20} type="material-community" />
-        <TextInput
-          placeholder="Last Name"
-          placeholderTextColor="#666666"
-          autoCompleteType={false}
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.action}>
-        <Icon name="at" size={20} type="material-community" />
-        <TextInput
-          placeholder="Username"
-          keyboardType="email-address"
-          placeholderTextColor="#666666"
-          autoCompleteType={false}
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.action}>
-        <Icon name="email" size={20} type="material-community" />
-        <TextInput
-          placeholder="Email"
-          keyboardType="email-address"
-          placeholderTextColor="#666666"
-          autoCompleteType={false}
-          style={styles.textInput}
-        />
-      </View>
-      <TouchableOpacity style={styles.commandButton} onPress={() => {}}>
-        <Text style={styles.panelButtonTitle}>Submit</Text>
-      </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 };
@@ -160,7 +211,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#F7A8B8',
     alignItems: 'center',
-    marginLeft: 20,
+    marginVertical: 7,
+    marginBottom: 10,
+  },
+  panelButtonLast: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: '#F7A8B8',
+    alignItems: 'center',
+    marginVertical: 7,
+    marginBottom: 100,
   },
   panelButtonTitle: {
     fontSize: 17,
