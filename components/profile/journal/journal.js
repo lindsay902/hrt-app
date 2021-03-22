@@ -213,7 +213,7 @@ const Journal = ({ navigation }) => {
           data={dataPosts}
           renderItem={renderItem}
           keyExtractor={(item) => item.key}
-          initialNumToRender={5}
+          initialNumToRender={8}
           persistentScrollbar
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getValues} />

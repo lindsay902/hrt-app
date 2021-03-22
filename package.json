@@ -28,6 +28,7 @@
     "expo-secure-store": "^9.3.0",
     "expo-status-bar": "^1.0.3",
     "expo-updates": "~0.4.1",
+    "native-forms": "^1.5.3",
     "prettier": "^2.2.1",
     "react": "16.13.1",
     "react-animated-number": "^0.4.4",
@@ -54,6 +55,7 @@
     "react-native-swipe-list-view": "^3.2.6",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.15.0",
+    "react-native-webview": "^11.0.0",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22"
   },
   "devDependencies": {

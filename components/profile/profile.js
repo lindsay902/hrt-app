@@ -4,10 +4,16 @@ import { Icon } from 'react-native-elements';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import Feather from 'react-native-vector-icons/Feather';
+import * as ImagePicker from 'expo-image-picker';
 
 const Profile = () => {
   const bs = createRef();
   const fall = new Animated.Value(1);
+
+  const takeCameraPhoto = () => {};
+
+  const chooseFromLibrary = () => {};
 
   const renderContent = () => (
     <View style={styles.panel}>
@@ -15,10 +21,10 @@ const Profile = () => {
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose a Profile Picture</Text>
       </View>
-      <TouchableOpacity style={styles.panelButton}>
+      <TouchableOpacity style={styles.panelButton} onPress={takeCameraPhoto}>
         <Text style={styles.panelButtonTitle}>Take Photo</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton}>
+      <TouchableOpacity style={styles.panelButton} onPress={chooseFromLibrary}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -42,7 +48,7 @@ const Profile = () => {
     <View style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={[0, 410]}
+        snapPoints={[0, 415]}
         renderContent={renderContent}
         renderHeader={renderHeader}
         initialSnap={0}
@@ -53,7 +59,7 @@ const Profile = () => {
       <Animated.View
         style={{
           margin: 20,
-          opacity: Animated.add(0.4, Animated.multiply(fall, 1.0)),
+          opacity: Animated.add(0.2, Animated.multiply(fall, 1.0)),
         }}
       >
         <View style={{ alignItems: 'center' }}>

@@ -7,28 +7,24 @@ class ProgressChartHRT extends React.PureComponent {
   render() {
     const data = [
       {
-        month: new Date(2015, 0, 1),
-        estrogen: 3840,
-        testosterone: 1920,
-        potassium: 960,
+        estrogen: 100,
+        testosterone: 10,
+        potassium: 9,
       },
       {
-        month: new Date(2015, 1, 1),
-        estrogen: 1600,
-        testosterone: 1440,
-        potassium: 960,
+        estrogen: 125,
+        testosterone: 20,
+        potassium: 12,
       },
       {
-        month: new Date(2015, 2, 1),
-        estrogen: 640,
-        testosterone: 960,
-        potassium: 3640,
+        estrogen: 150,
+        testosterone: 30,
+        potassium: 15,
       },
       {
-        month: new Date(2015, 3, 1),
-        estrogen: 3320,
-        testosterone: 480,
-        potassium: 640,
+        estrogen: 200,
+        testosterone: 40,
+        potassium: 20,
       },
     ];
 
@@ -58,7 +54,6 @@ class ProgressChartHRT extends React.PureComponent {
           data={data}
           keys={keys}
           colors={colors}
-          months={months}
           curve={shape.curveNatural}
         >
           <Grid />
