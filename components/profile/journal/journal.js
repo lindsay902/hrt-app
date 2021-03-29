@@ -32,7 +32,6 @@ const Journal = ({ navigation }) => {
   });
 
   useEffect(() => {
-    console.log('requestToServer');
     getValues();
   }, []);
 
@@ -134,7 +133,10 @@ const Journal = ({ navigation }) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        { text: 'OK', onPress: () => AsyncStorage.removeItem(itemId) },
+        {
+          text: 'OK',
+          onPress: () => AsyncStorage.removeItem(itemId).then(getValues()),
+        },
       ],
       { cancelable: false },
     );
@@ -167,6 +169,9 @@ const Journal = ({ navigation }) => {
             My Journal
           </Text>
         </View>
+        <Text style={{ textAlign: 'center', paddingHorizontal: 55 }}>
+          A place to record any changes to your physical or mental health
+        </Text>
       </SafeAreaView>
       <View style={styles.addEntryButton}>
         <Icon

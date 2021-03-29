@@ -61,6 +61,7 @@ const PotassiumHormoneLevels = () => {
         animateToNumber={potassiumCount}
         fontStyle={{ fontSize: 40, fontWeight: 'bold' }}
       />
+      <Text>mmol/L</Text>
       <View style={{ flexDirection: 'row' }}>
         <Icon
           reverse

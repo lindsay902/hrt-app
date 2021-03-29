@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,21 +11,24 @@ import {
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
-import * as Permissions from 'expo-permissions';
 import { SafeAreaView } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Icon } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
+import { ImageEditor } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { v4 as uuidv4 } from 'uuid';
 
 const tag = '[CAMERA]';
 
-export default function MyPhotos() {
+const MyPhotos = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
   const [startOver, setStartOver] = useState(true);
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [data, setData] = useState();
+  const [photos, setPhotos] = useState([]);
   const [image, setImage] = useState(null);
 
   let camera = Camera;
@@ -38,25 +40,116 @@ export default function MyPhotos() {
     })();
   }, []);
 
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const randomImageKey = () => {
+    let imageKey = 'IMG';
+    let num = uuidv4();
+    imageKey += num;
+    return imageKey;
+  };
+
   const __closeCamera = () => {
     setStartOver(true);
   };
+
   const __takePicture = async () => {
-    if (!camera && hasPermission !== 'granted') {
+    if (!camera) {
       return;
-    } else if (hasPermission === 'granted!') {
-      let photo = await camera.takePictureAsync();
-      console.log('photo', photo);
-      setPreviewVisible(true);
+    }
+    const photo = await camera.takePictureAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      quality: 1,
+      aspect: [4, 3],
+    });
+    //console.log(photo);
+    const source = photo.uri;
+    setPreviewVisible(true);
+    setCapturedImage(photo);
+    await MediaLibrary.createAssetAsync(photo.uri);
+    //const asset = await MediaLibrary.createAssetAsync(photo);
+    //console.log(asset);
+    setImage(photo.uri);
+  };
+
+  const saveImages = async () => {
+    try {
+      let generatekey = randomImageKey();
+      generatekey = JSON.stringify(generatekey);
+      const save = await AsyncStorage.setItem(generatekey, image);
+      //setData([...data, save]);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const __savePhoto = async (photo) => {
-    //setImage(photo);
-    const asset = await MediaLibrary.saveToLibraryAsync(uri);
-    // console.log(`Here are the images ${image}`);
-    // console.log(image.uri);
+  const getData = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys((err, keys) => {
+        if (err) {
+          return [];
+        } else {
+          return keys;
+        }
+      });
+      let value = await AsyncStorage.multiGet(keys);
+      value = value.map((result, i, store) => {
+        let key = store[i][0];
+        let image = store[i][1];
+        return {
+          key: key,
+          image: image,
+        };
+      });
+      setPhotos(value);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const handleImage = async () => {
+    await saveImages();
+    setStartOver(true);
+  };
+  // const doesAlbumExist = async (album_name) => {
+  //   try {
+  //     const albumExists = await MediaLibrary.getAlbumAsync(album_name);
+  //     return albumExists;
+  //   } catch (error) {
+  //     console.log('error finding album');
+  //   }
+  // };
+
+  // const __savePhoto = async () => {
+  //   console.log(image);
+  //   try {
+  //     const savedPhoto = await MediaLibrary.createAssetAsync(image.uri);
+  //   } catch (error) {
+  //     console.log(`Error ${error} could not save photo.`);
+  //   }
+  // };
+  //   try {
+  //     //console.log(capturedImage);
+  //     //console.log(image);
+  //     const asset = await MediaLibrary.createAssetAsync(capturedImage.uri);
+  //     const returnedAsset = await MediaLibrary.getAssetsAsync({
+  //       first: 10,
+  //       sortBy: ['creationTime'],
+  //       mediaType: ['photo'],
+  //     });
+  //     console.log(returnedAsset);
+  //     //myPhotos.push(returnedAsset);
+  //     await MediaLibrary.addAssetsToAlbumAsync(returnedAsset, 'TimelinePhotos');
+  //     setPreviewVisible(false);
+  //     // console.log(`Here are the images ${image}`);
+  //     // console.log(image.uri);
+  //   } catch (error) {
+  //     console.log(`Error ${error}`);
+  //   }
+  // };
 
   useEffect(() => {
     (async () => {
@@ -79,10 +172,8 @@ export default function MyPhotos() {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage(result);
     }
   };
 
@@ -94,15 +185,26 @@ export default function MyPhotos() {
     return null;
   }
 
-  const renderItem = ({ item, index }) => (
-    <View>
-      <Image
-        key={index}
-        source={{ uri: image }}
-        style={{ width: 200, height: 200 }}
-      />
-    </View>
-  );
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
+  const renderItem = (props) => {
+    console.log(props);
+    return (
+      <View>
+        <Image
+          source={{
+            uri: photos[props.index].image,
+          }}
+          style={{ width: 200, height: 200 }}
+        />
+      </View>
+    );
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -119,7 +221,6 @@ export default function MyPhotos() {
           >
             Timeline Photos
           </Text>
-          <Text>@username</Text>
         </View>
         <View
           style={{
@@ -148,13 +249,32 @@ export default function MyPhotos() {
         </View>
       </SafeAreaView>
       {startOver ? (
-        <View style={{ flex: 1, backgroundColor: 'lightgrey' }}>
+        <View style={{ flex: 1, backgroundColor: '#f4d4d4' }}>
+          <View>
+            <Button
+              title="Pick an image from camera roll"
+              //onPress={pickImage}
+              color="black"
+            >
+              {image && (
+                <Image
+                  source={{ uri: image.uri }}
+                  key={{ id: image.id }}
+                  style={{
+                    width: 300,
+                    height: 300,
+                    borderRadius: 10,
+                    borderColor: 'grey',
+                    borderWidth: 2,
+                  }}
+                />
+              )}
+            </Button>
+          </View>
           <FlatList
-            data={image}
+            style={{ borderWidth: 1, borderColor: 'hotpink' }}
+            data={photos}
             renderItem={renderItem}
-            keyExtractor={(id) => {
-              id.toString();
-            }}
             numColumns={2}
             initialNumToRender={10}
           />
@@ -206,7 +326,7 @@ export default function MyPhotos() {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={__savePhoto}
+                    onPress={handleImage}
                     style={{
                       width: 130,
                       height: 40,
@@ -312,7 +432,7 @@ export default function MyPhotos() {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -335,3 +455,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default MyPhotos;

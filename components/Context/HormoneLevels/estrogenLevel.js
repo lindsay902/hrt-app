@@ -56,11 +56,12 @@ const EstrogenHormoneLevels = () => {
 
   return (
     <View style={styles.hormones}>
-      <Text style={{ fontSize: 15, marginBottom: 10 }}>Estrogen</Text>
+      <Text style={{ fontSize: 15, marginBottom: 10 }}>Estradiol</Text>
       <AnimatedNumber
         animateToNumber={estrogenCount}
         fontStyle={{ fontSize: 40, fontWeight: 'bold' }}
       />
+      <Text>pg/mL</Text>
       <View style={{ flexDirection: 'row' }}>
         <Icon
           reverse

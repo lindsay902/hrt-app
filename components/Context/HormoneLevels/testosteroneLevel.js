@@ -4,27 +4,27 @@ import AnimatedNumber from 'react-native-animated-numbers';
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TestosteroneCounterContext = createContext(10);
+const TestosteroneCounterContext = createContext(400);
 
 const useTestosteroneCounter = () => useContext(TestosteroneCounterContext);
 
 const TestosteroneCounterContextProvider = ({ children }) => {
-  const [testosteroneCount, setTestosteroneCount] = useState(10);
+  const [testosteroneCount, setTestosteroneCount] = useState(400);
 
   const testosteroneIncrement = () => {
-    if (testosteroneCount >= 0 && testosteroneCount <= 350) {
+    if (testosteroneCount >= 0 && testosteroneCount <= 500) {
       setTestosteroneCount(testosteroneCount + 1);
     }
   };
 
   const testosteroneDecrement = () => {
-    if (testosteroneCount >= 0 && testosteroneCount <= 350) {
+    if (testosteroneCount >= 0 && testosteroneCount <= 1300) {
       setTestosteroneCount(testosteroneCount - 1);
     }
   };
 
   useEffect(() => {
-    if (testosteroneCount !== 10) {
+    if (testosteroneCount !== 400) {
       AsyncStorage.setItem('TESTOSTERONECOUNT', `${testosteroneCount}`);
     }
   }, [testosteroneCount]);
@@ -65,6 +65,7 @@ const TestosteroneHormoneLevels = () => {
         animateToNumber={testosteroneCount}
         fontStyle={{ fontSize: 40, fontWeight: 'bold' }}
       />
+      <Text>ng/dL</Text>
       <View style={{ flexDirection: 'row' }}>
         <Icon
           reverse
