@@ -5,7 +5,10 @@ import { Image } from 'react-native';
 
 const FictionBooks = () => {
   return (
-    <View style={styles.viewPager}>
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      <View style={{ marginLeft: -120 }}>
+        <Text style={styles.fiction}> Fiction </Text>
+      </View>
       <ViewPager
         style={styles.viewPager}
         initialPage={0}
@@ -100,11 +103,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cover: {
-    width: '40%',
+    width: '90%',
     height: '70%',
+    borderRadius: 5,
   },
   bookTitle: {
     fontStyle: 'italic',
+  },
+  fiction: {
+    transform: [{ rotate: '-90deg' }],
+    fontFamily: 'HandleeRegular',
+    fontSize: 30,
+    marginTop: 80,
+    paddingRight: 60,
   },
 });
 

@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStackScreen from './HomeStackScreen';
 import MyPhotos from '../components/Profile/Photos/photos';
 import Journal from '../components/Profile/Journal/journal';
-import CommunityFeed from '../components/Community/communityfeed';
 import ResourcesScreen from './ResourcesScreen';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -51,7 +50,7 @@ function Main() {
         name="CommunityFeed"
         component={ResourcesScreen}
         options={{
-          tabBarLabel: 'Resources',
+          tabBarLabel: 'Library',
           tabBarColor: '#d02860',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-book" color={color} size={26} />

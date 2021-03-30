@@ -13,9 +13,7 @@ const CommunityFeed = () => {
 };
 
 const styles = StyleSheet.create({
-  viewPager: {
-    flex: 1,
-  },
+  
   page: {
     justifyContent: 'center',
     alignItems: 'center',

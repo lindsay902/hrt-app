@@ -9,6 +9,7 @@ import TestosteroneContextProvider from '../Context/HormoneLevels/testosteroneLe
 import TestosteroneHormoneLevels from '../Context/HormoneLevels/testosteroneLevel';
 import PotassiumContextProvider from '../Context/HormoneLevels/potassiumLevel';
 import PotassiumHormoneLevels from '../Context/HormoneLevels/potassiumLevel';
+import SvgComponent from '../Community/Polls/symptomsPoll';
 
 const Home = ({ navigation }) => {
   const [loaded] = useFonts({
