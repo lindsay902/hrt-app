@@ -275,7 +275,6 @@ const MyPhotos = () => {
             style={{ borderWidth: 1, borderColor: 'hotpink' }}
             data={photos}
             renderItem={renderItem}
-            numColumns={2}
             initialNumToRender={10}
           />
         </View>

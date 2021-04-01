@@ -1,6 +1,13 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { View, StyleSheet, Text, Image, Button } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import { useFonts } from 'expo-font';
 import EstrogenContextProvider from '../Context/HormoneLevels/estrogenLevel';
 import EstrogenHormoneLevels from '../Context/HormoneLevels/estrogenLevel';
@@ -8,7 +15,6 @@ import TestosteroneContextProvider from '../Context/HormoneLevels/testosteroneLe
 import TestosteroneHormoneLevels from '../Context/HormoneLevels/testosteroneLevel';
 import PotassiumContextProvider from '../Context/HormoneLevels/potassiumLevel';
 import PotassiumHormoneLevels from '../Context/HormoneLevels/potassiumLevel';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home = ({ navigation }) => {
   const [loaded] = useFonts({
@@ -39,10 +45,17 @@ const Home = ({ navigation }) => {
             <PotassiumHormoneLevels />
           </PotassiumContextProvider>
         </View>
-        <View style={{ alignItems: 'center', paddingTop: 20 }}>
-          <Text>Information + sources</Text>
-          <Text>here is some</Text>
-          <Text>Information!</Text>
+        <View
+          style={{
+            alignItems: 'center',
+            paddingTop: 20,
+            paddingHorizontal: 70,
+          }}
+        >
+          <Text style={{ textAlign: 'center' }}>
+            For information on hormone levels and hormone therapy, talk to your
+            health care provider.
+          </Text>
         </View>
       </View>
       <View style={{ flex: 1, marginTop: -100 }}>
@@ -59,16 +72,13 @@ const Home = ({ navigation }) => {
               style={styles.image}
               source={require('../../assets/resources/polls/Symptoms.png')}
             />
-            <TouchableOpacity style={styles.buttons}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                Participate
-              </Text>
+            <TouchableOpacity
+              style={styles.buttons}
+              onPress={() => {
+                navigation.navigate('SymptomsPoll');
+              }}
+            >
+              <Text style={styles.participateButton}>Participate</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -76,16 +86,13 @@ const Home = ({ navigation }) => {
               style={styles.image}
               source={require('../../assets/resources/polls/MentalHealth.png')}
             />
-            <TouchableOpacity style={styles.buttons}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                Participate
-              </Text>
+            <TouchableOpacity
+              style={styles.buttons}
+              onPress={() => {
+                navigation.navigate('MentalHealthPoll');
+              }}
+            >
+              <Text style={styles.participateButton}>Participate</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -93,16 +100,13 @@ const Home = ({ navigation }) => {
               style={styles.image}
               source={require('../../assets/resources/polls/Beauty.png')}
             />
-            <TouchableOpacity style={styles.buttons}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                Participate
-              </Text>
+            <TouchableOpacity
+              style={styles.buttons}
+              onPress={() => {
+                navigation.navigate('BeautyPoll');
+              }}
+            >
+              <Text style={styles.participateButton}>Participate</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.button}>
@@ -110,16 +114,13 @@ const Home = ({ navigation }) => {
               style={styles.image}
               source={require('../../assets/resources/polls/Relationships.png')}
             />
-            <TouchableOpacity style={styles.buttons}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                Participate
-              </Text>
+            <TouchableOpacity
+              style={styles.buttons}
+              onPress={() => {
+                navigation.navigate('RelationshipsPoll');
+              }}
+            >
+              <Text style={styles.participateButton}>Participate</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -166,6 +167,12 @@ const styles = StyleSheet.create({
   image: {
     width: 175,
     height: 175,
+  },
+  participateButton: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold',
+    paddingBottom: 5,
   },
 });
 
