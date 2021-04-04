@@ -32,7 +32,6 @@ const PotassiumCounterContextProvider = ({ children }) => {
   useEffect(() => {
     SecureStore.getItemAsync('POTASSIUMCOUNT').then((value) => {
       if (value) {
-        console.log(value);
         setPotassiumCount(parseInt(value));
       }
     });

@@ -32,7 +32,6 @@ const TestosteroneCounterContextProvider = ({ children }) => {
   useEffect(() => {
     SecureStore.getItemAsync('TESTOSTERONECOUNT').then((value) => {
       if (value) {
-        console.log(value);
         setTestosteroneCount(parseInt(value));
       }
     });

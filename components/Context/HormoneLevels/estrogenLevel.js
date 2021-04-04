@@ -32,7 +32,6 @@ const EstrogenCounterContextProvider = ({ children }) => {
   useEffect(() => {
     SecureStore.getItemAsync('ESTROGENCOUNT').then((value) => {
       if (value) {
-        console.log(value);
         setEstrogenCount(parseInt(value));
       }
     });

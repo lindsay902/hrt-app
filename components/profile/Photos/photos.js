@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import {
   StyleSheet,
@@ -17,10 +18,25 @@ import { Icon } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import { ImageEditor } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuidv4 } from 'uuid';
+import * as FileSystem from 'expo-file-system';
 
 const tag = '[CAMERA]';
+
+const directoryName = FileSystem.documentDirectory + 'myPhotoAlbum';
+
+const myFileDirectory = async () => {
+  try {
+    await FileSystem.makeDirectoryAsync(directoryName, { intermediates: true });
+    let createdDirectory = await FileSystem.getInfoAsync(directoryName);
+    //console.log(JSON.stringify(createdDirectory));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+myFileDirectory(directoryName);
 
 const MyPhotos = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -41,7 +57,7 @@ const MyPhotos = () => {
   }, []);
 
   useEffect(() => {
-    getData();
+    getPhotosFromFileSystem();
   }, []);
 
   const randomImageKey = () => {
@@ -65,91 +81,102 @@ const MyPhotos = () => {
       quality: 1,
       aspect: [4, 3],
     });
-    //console.log(photo);
     const source = photo.uri;
     setPreviewVisible(true);
     setCapturedImage(photo);
-    await MediaLibrary.createAssetAsync(photo.uri);
-    //const asset = await MediaLibrary.createAssetAsync(photo);
-    //console.log(asset);
-    setImage(photo.uri);
+    await MediaLibrary.createAssetAsync(source);
+    setImage(photo);
   };
 
   const saveImages = async () => {
     try {
       let generatekey = randomImageKey();
-      generatekey = JSON.stringify(generatekey);
-      const save = await AsyncStorage.setItem(generatekey, image);
-      //setData([...data, save]);
+      //generatekey = JSON.stringify(generatekey);
+      console.log(generatekey);
+      console.log(`ImageUri:${image.uri}`);
+      console.log(`Newfile:${directoryName}/${generatekey}`);
+      await FileSystem.moveAsync({
+        from: image.uri,
+        to: `${directoryName}/${generatekey}`,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getData = async () => {
+  //console.log(`Directoryname:${directoryName}`);
+
+  const getPhotosFromFileSystem = async () => {
     try {
-      const keys = await AsyncStorage.getAllKeys((err, keys) => {
-        if (err) {
-          return [];
-        } else {
-          return keys;
-        }
-      });
-      let value = await AsyncStorage.multiGet(keys);
+      let value = await FileSystem.readDirectoryAsync(directoryName);
+      console.log(`Value:${value}`);
       value = value.map((result, i, store) => {
-        let key = store[i][0];
-        let image = store[i][1];
+        console.log(`result:${result}, i:${i}`);
+        let key = store[i];
+        let image = `${directoryName}/${result}`;
+        console.log(`key:${key}`);
+        console.log(`Image:${image}`);
         return {
           key: key,
           image: image,
         };
       });
       setPhotos(value);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
     }
   };
+
+  //getPhotosFromFileSystem();
+
+  console.log(`Photos:${photos}`);
+
+  // const getData = async () => {
+  //   try {
+  //     let value = await FileSystem.readDirectoryAsync(directoryName);
+  //     value = value.map((result, i, store) => {
+  //       let key = store[i][0];
+  //       let image = store[i][1];
+  //       return {
+  //         key: key,
+  //         image: image,
+  //       };
+  //     });
+  //     setPhotos(value);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // };
+
+  // const getData = async () => {
+  //   try {
+  //     const keys = await AsyncStorage.getAllKeys((err, keys) => {
+  //       if (err) {
+  //         return [];
+  //       } else {
+  //         return keys;
+  //       }
+  //     });
+  //     let value = await AsyncStorage.multiGet(keys);
+  //     value = value.map((result, i, store) => {
+  //       let key = store[i][0];
+  //       let image = store[i][1];
+  //       return {
+  //         key: key,
+  //         image: image,
+  //       };
+  //     });
+  //     setPhotos(value);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleImage = async () => {
     await saveImages();
     setStartOver(true);
   };
-  // const doesAlbumExist = async (album_name) => {
-  //   try {
-  //     const albumExists = await MediaLibrary.getAlbumAsync(album_name);
-  //     return albumExists;
-  //   } catch (error) {
-  //     console.log('error finding album');
-  //   }
-  // };
-
-  // const __savePhoto = async () => {
-  //   console.log(image);
-  //   try {
-  //     const savedPhoto = await MediaLibrary.createAssetAsync(image.uri);
-  //   } catch (error) {
-  //     console.log(`Error ${error} could not save photo.`);
-  //   }
-  // };
-  //   try {
-  //     //console.log(capturedImage);
-  //     //console.log(image);
-  //     const asset = await MediaLibrary.createAssetAsync(capturedImage.uri);
-  //     const returnedAsset = await MediaLibrary.getAssetsAsync({
-  //       first: 10,
-  //       sortBy: ['creationTime'],
-  //       mediaType: ['photo'],
-  //     });
-  //     console.log(returnedAsset);
-  //     //myPhotos.push(returnedAsset);
-  //     await MediaLibrary.addAssetsToAlbumAsync(returnedAsset, 'TimelinePhotos');
-  //     setPreviewVisible(false);
-  //     // console.log(`Here are the images ${image}`);
-  //     // console.log(image.uri);
-  //   } catch (error) {
-  //     console.log(`Error ${error}`);
-  //   }
-  // };
 
   useEffect(() => {
     (async () => {
@@ -158,6 +185,7 @@ const MyPhotos = () => {
           status,
         } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
+          // eslint-disable-next-line no-alert
           alert('Sorry, we need camera roll permissions to make this work!');
         }
       }
@@ -200,7 +228,7 @@ const MyPhotos = () => {
           source={{
             uri: photos[props.index].image,
           }}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 100, height: 100 }}
         />
       </View>
     );
@@ -259,7 +287,7 @@ const MyPhotos = () => {
               {image && (
                 <Image
                   source={{ uri: image.uri }}
-                  key={{ id: image.id }}
+                  key={{ id: image.key }}
                   style={{
                     width: 300,
                     height: 300,
