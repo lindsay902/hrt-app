@@ -11,6 +11,7 @@ import RootStackScreen from './Screens/RootStackScreen';
 import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import { AuthContext } from './components/Context/context';
+import AboutStackScreen from './Screens/AboutScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -62,6 +63,7 @@ function App() {
             />
             <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
             <Drawer.Screen name="Support" component={SupportStackScreen} />
+            <Drawer.Screen name="AboutStackScreen" component={AboutStackScreen} />
           </Drawer.Navigator>
         ) : (
           <RootStackScreen />

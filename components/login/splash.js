@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
 
-const SplashScreen = ({ navigation }) => {
+const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -26,7 +26,10 @@ const SplashScreen = ({ navigation }) => {
       </View>
       <Animatable.View style={styles.footer} animation="fadeInUpBig">
         <Text style={styles.title}>Welcome!</Text>
-        <Text style={styles.text}>Sign in</Text>
+        <Text style={styles.text}>
+          This app was made for trans women to track their hormone levels and
+          log their progress along this journey.
+        </Text>
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
@@ -99,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SplashScreen;
+export default WelcomeScreen;

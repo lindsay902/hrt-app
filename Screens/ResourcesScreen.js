@@ -18,7 +18,7 @@ const ResourcesScreen = () => {
   }
 
   return (
-    <View style={{ flexGrow: 1, backgroundColor: 'lightblue' }}>
+    <View style={{ flexGrow: 1, backgroundColor: '#55CDFC' }}>
       <SafeAreaView>
         <Text style={styles.textStyle}>Library</Text>
       </SafeAreaView>

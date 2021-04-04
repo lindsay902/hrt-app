@@ -25,7 +25,7 @@ const NavDrawer = (props) => {
                 <Caption style={styles.caption}>@kittypryde</Caption>
               </View>
             </View>
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.caption]}>
                   80
@@ -38,7 +38,7 @@ const NavDrawer = (props) => {
                 </Paragraph>
                 <Caption style={styles.caption}>Followers</Caption>
               </View>
-            </View>
+            </View> */}
           </View>
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
@@ -61,18 +61,9 @@ const NavDrawer = (props) => {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="pharmacy" color={color} size={size} />
+                <Icon name="brain" color={color} size={size} />
               )}
-              label="Health"
-              onPress={() => {
-                props.navigation.navigate('SettingsStackScreen');
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon name="wrench" color={color} size={size} />
-              )}
-              label="Settings"
+              label="Feedback"
               onPress={() => {
                 props.navigation.navigate('SettingsStackScreen');
               }}
@@ -84,6 +75,15 @@ const NavDrawer = (props) => {
               label="Support"
               onPress={() => {
                 props.navigation.navigate('Support');
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <Icon name="information" color={color} size={size} />
+              )}
+              label="About"
+              onPress={() => {
+                props.navigation.navigate('AboutStackScreen');
               }}
             />
           </Drawer.Section>

@@ -31,6 +31,8 @@ const Journal = ({ navigation }) => {
     return d - c;
   });
 
+  console.log(dataPosts);
+
   useEffect(() => {
     getValues();
   }, []);
@@ -65,8 +67,18 @@ const Journal = ({ navigation }) => {
   };
 
   const handlePost = async () => {
-    await storePosts();
+    await storePosts().then(getValues());
     closeEntry();
+  };
+
+  const deleteITEM = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      // clear error
+    }
+
+    console.log('Done.');
   };
 
   const getValues = async () => {
@@ -172,6 +184,7 @@ const Journal = ({ navigation }) => {
         <Text style={{ textAlign: 'center', paddingHorizontal: 55 }}>
           A place to record any changes to your physical or mental health
         </Text>
+        <Button title="delete" onPress={deleteITEM} />
       </SafeAreaView>
       <View style={styles.addEntryButton}>
         <Icon

@@ -6,13 +6,12 @@ import { Image } from 'react-native';
 const NonFictionBooks = () => {
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
-      <View style={{ marginLeft: -150, marginRight: -20 }}>
-        <Text style={styles.nonfiction}>Non-Fiction</Text>
+      <View style={{ marginLeft: -140 }}>
+        <Text style={styles.nonfiction}> Non-Fiction </Text>
       </View>
       <ViewPager
         style={styles.viewPager}
         initialPage={0}
-        pageMargin={1}
         showPageIndicator={true}
       >
         <View style={styles.page} key="1">
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   },
   cover: {
     width: '90%',
-    height: '70%',
+    height: '75%',
     borderRadius: 5,
   },
   bookTitle: {
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
     fontFamily: 'HandleeRegular',
     fontSize: 30,
     marginTop: 80,
-    paddingRight: 60,
   },
 });
 

@@ -6,7 +6,7 @@ import { Image } from 'react-native';
 const FictionBooks = () => {
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
-      <View style={{ marginLeft: -120 }}>
+      <View style={{ marginLeft: -140 }}>
         <Text style={styles.fiction}> Fiction </Text>
       </View>
       <ViewPager
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   cover: {
     width: '90%',
-    height: '70%',
+    height: '75%',
     borderRadius: 5,
   },
   bookTitle: {

@@ -25,17 +25,6 @@ function Main() {
         }}
       />
       <Tab.Screen
-        name="Photos"
-        component={MyPhotos}
-        options={{
-          tabBarLabel: 'MyPhotos',
-          tabBarColor: '#55CDFC',
-          tabBarIcon: ({ color }) => (
-            <Icon name="camera" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Journal"
         component={Journal}
         options={{
@@ -47,11 +36,22 @@ function Main() {
         }}
       />
       <Tab.Screen
+        name="Photos"
+        component={MyPhotos}
+        options={{
+          tabBarLabel: 'MyPhotos',
+          tabBarColor: '#55CDFC',
+          tabBarIcon: ({ color }) => (
+            <Icon name="camera" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="CommunityFeed"
         component={ResourcesScreen}
         options={{
           tabBarLabel: 'Library',
-          tabBarColor: '#d02860',
+          tabBarColor: '#F7A8B8',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-book" color={color} size={26} />
           ),

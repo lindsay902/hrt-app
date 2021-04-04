@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import AnimatedNumber from 'react-native-animated-numbers';
 import { Icon } from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 const PotassiumCounterContext = createContext(20);
 
@@ -25,12 +25,12 @@ const PotassiumCounterContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (potassiumCount !== 20) {
-      AsyncStorage.setItem('POTASSIUMCOUNT', `${potassiumCount}`);
+      SecureStore.setItemAsync('POTASSIUMCOUNT', `${potassiumCount}`);
     }
   }, [potassiumCount]);
 
   useEffect(() => {
-    AsyncStorage.getItem('POTASSIUMCOUNT').then((value) => {
+    SecureStore.getItemAsync('POTASSIUMCOUNT').then((value) => {
       if (value) {
         console.log(value);
         setPotassiumCount(parseInt(value));

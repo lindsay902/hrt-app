@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import AnimatedNumber from 'react-native-animated-numbers';
 import { Icon } from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 const TestosteroneCounterContext = createContext(400);
 
@@ -25,12 +25,12 @@ const TestosteroneCounterContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (testosteroneCount !== 400) {
-      AsyncStorage.setItem('TESTOSTERONECOUNT', `${testosteroneCount}`);
+      SecureStore.setItemAsync('TESTOSTERONECOUNT', `${testosteroneCount}`);
     }
   }, [testosteroneCount]);
 
   useEffect(() => {
-    AsyncStorage.getItem('TESTOSTERONECOUNT').then((value) => {
+    SecureStore.getItemAsync('TESTOSTERONECOUNT').then((value) => {
       if (value) {
         console.log(value);
         setTestosteroneCount(parseInt(value));
