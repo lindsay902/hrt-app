@@ -31,8 +31,6 @@ const Journal = ({ navigation }) => {
     return d - c;
   });
 
-  console.log(dataPosts);
-
   useEffect(() => {
     getValues();
   }, []);
@@ -60,9 +58,8 @@ const Journal = ({ navigation }) => {
       randomKey = randomKey.toString();
       postToSave.date = dateToday;
       await AsyncStorage.setItem(randomKey, JSON.stringify(postToSave));
-      console.log('post saved');
     } catch (e) {
-      console.log('Post did not save');
+      console.log(`Post did not save error:${e}`);
     }
   };
 
@@ -77,8 +74,6 @@ const Journal = ({ navigation }) => {
     } catch (e) {
       // clear error
     }
-
-    console.log('Done.');
   };
 
   const getValues = async () => {

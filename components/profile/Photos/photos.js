@@ -78,7 +78,7 @@ const MyPhotos = () => {
     const photo = await camera.takePictureAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      quality: 1,
+      quality: 0.75,
       aspect: [4, 3],
     });
     const source = photo.uri;
@@ -124,6 +124,18 @@ const MyPhotos = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const FlatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 10,
+          width: '100%',
+          backgroundColor: 'white',
+        }}
+      />
+    );
   };
 
   //console.log(`Photos.image${photos.image}`);
@@ -196,7 +208,7 @@ const MyPhotos = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.5,
     });
 
     if (!result.cancelled) {
@@ -227,14 +239,14 @@ const MyPhotos = () => {
           source={{
             uri: photos[props.index].image,
           }}
-          style={{ width: 100, height: 100 }}
+          style={{ width: 410, height: 410, alignSelf: 'center' }}
         />
       </View>
     );
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <SafeAreaView
         style={{ borderBottomColor: 'black', borderBottomWidth: 1 }}
       >
@@ -244,6 +256,7 @@ const MyPhotos = () => {
               fontFamily: 'HandleeRegular',
               fontSize: 25,
               paddingTop: 10,
+              color: 'white',
             }}
           >
             Timeline Photos
@@ -276,33 +289,13 @@ const MyPhotos = () => {
         </View>
       </SafeAreaView>
       {startOver ? (
-        <View style={{ flex: 1, backgroundColor: '#f4d4d4' }}>
-          <View>
-            <Button
-              title="Pick an image from camera roll"
-              //onPress={pickImage}
-              color="black"
-            >
-              {image && (
-                <Image
-                  source={{ uri: image.uri }}
-                  key={{ id: image.key }}
-                  style={{
-                    width: 300,
-                    height: 300,
-                    borderRadius: 10,
-                    borderColor: 'grey',
-                    borderWidth: 2,
-                  }}
-                />
-              )}
-            </Button>
-          </View>
+        <View style={{ flex: 1, backgroundColor: 'black' }}>
           <FlatList
-            style={{ borderWidth: 1, borderColor: 'hotpink' }}
+            style={{ borderWidth: 1 }}
             data={photos}
             renderItem={renderItem}
-            initialNumToRender={10}
+            initialNumToRender={5}
+            ItemSeparatorComponent={FlatListItemSeparator}
           />
         </View>
       ) : (
