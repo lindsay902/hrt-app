@@ -16,11 +16,10 @@ import { SafeAreaView } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Icon } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
-import { Button } from 'react-native-paper';
-import { ImageEditor } from 'react-native';
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuidv4 } from 'uuid';
 import * as FileSystem from 'expo-file-system';
+import { Alert } from 'react-native';
 
 const tag = '[CAMERA]';
 
@@ -29,8 +28,7 @@ const directoryName = FileSystem.documentDirectory + 'myPhotoAlbum';
 const myFileDirectory = async () => {
   try {
     await FileSystem.makeDirectoryAsync(directoryName, { intermediates: true });
-    let createdDirectory = await FileSystem.getInfoAsync(directoryName);
-    //console.log(JSON.stringify(createdDirectory));
+    await FileSystem.getInfoAsync(directoryName);
   } catch (e) {
     console.log(e);
   }
@@ -59,6 +57,10 @@ const MyPhotos = () => {
   useEffect(() => {
     getPhotosFromFileSystem();
   }, []);
+
+  const storedPhotos = photos.sort(function (a, b) {
+    return new Date(a.start).getTime() - new Date(b.start).getTime();
+  });
 
   const randomImageKey = () => {
     let imageKey = 'IMG';
@@ -91,8 +93,6 @@ const MyPhotos = () => {
   const saveImages = async () => {
     try {
       let generatekey = randomImageKey();
-      //generatekey = JSON.stringify(generatekey);
-      //console.log(generatekey);
       console.log(`ImageUri:${image.uri}`);
       console.log(`Newfile:${directoryName}/${generatekey}`);
       await FileSystem.moveAsync({
@@ -104,19 +104,21 @@ const MyPhotos = () => {
     }
   };
 
-  //console.log(`Directoryname:${directoryName}`);
-
   const getPhotosFromFileSystem = async () => {
     try {
       let value = await FileSystem.readDirectoryAsync(directoryName);
+      let date = new Date(Date.now());
+      const dateToday = date.toDateString();
       //console.log(`Value:${value}`);
       value = value.map((result, i, store) => {
         //console.log(`result:${result}, i:${i}`);
         let key = store[i];
         let image = `${directoryName}/${result}`;
+        let date = dateToday;
         return {
           key: key,
           image: image,
+          date: date,
         };
       });
       setPhotos(value);
@@ -138,52 +140,6 @@ const MyPhotos = () => {
     );
   };
 
-  //console.log(`Photos.image${photos.image}`);
-
-  //getPhotosFromFileSystem();
-
-  // const getData = async () => {
-  //   try {
-  //     let value = await FileSystem.readDirectoryAsync(directoryName);
-  //     value = value.map((result, i, store) => {
-  //       let key = store[i][0];
-  //       let image = store[i][1];
-  //       return {
-  //         key: key,
-  //         image: image,
-  //       };
-  //     });
-  //     setPhotos(value);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // };
-
-  // const getData = async () => {
-  //   try {
-  //     const keys = await AsyncStorage.getAllKeys((err, keys) => {
-  //       if (err) {
-  //         return [];
-  //       } else {
-  //         return keys;
-  //       }
-  //     });
-  //     let value = await AsyncStorage.multiGet(keys);
-  //     value = value.map((result, i, store) => {
-  //       let key = store[i][0];
-  //       let image = store[i][1];
-  //       return {
-  //         key: key,
-  //         image: image,
-  //       };
-  //     });
-  //     setPhotos(value);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleImage = async () => {
     await saveImages();
     setStartOver(true);
@@ -203,17 +159,24 @@ const MyPhotos = () => {
     })();
   }, []);
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
-
-    if (!result.cancelled) {
-      setImage(result);
-    }
+  const removeValue = async (uri) => {
+    Alert.alert(
+      'Delete post?',
+      'Confirm post deletion',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () =>
+            FileSystem.deleteAsync(uri).then(getPhotosFromFileSystem()),
+        },
+      ],
+      { cancelable: false },
+    );
   };
 
   const [loaded] = useFonts({
@@ -232,15 +195,38 @@ const MyPhotos = () => {
   }
 
   const renderItem = (props) => {
-    //console.log(props);
+    console.log(props);
     return (
       <View>
         <Image
           source={{
             uri: photos[props.index].image,
           }}
-          style={{ width: 410, height: 410, alignSelf: 'center' }}
+          style={{ width: 410, height: 600, alignSelf: 'center' }}
         />
+        <View
+          style={{
+            backgroundColor: 'white',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Text
+            style={{
+              alignSelf: 'flex-start',
+              fontWeight: '500',
+              fontStyle: 'italic',
+            }}
+          >
+            {photos[props.index].date}
+          </Text>
+          <TouchableOpacity
+            onPress={() => removeValue(photos[props.index].image)}
+            style={{ alignItems: 'flex-end' }}
+          >
+            <Icon name="close" type="material-community" size={20} />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -278,21 +264,13 @@ const MyPhotos = () => {
             size={20}
             onPress={() => setStartOver(false)}
           />
-          <Icon
-            reverse
-            name="upload"
-            type="material-community"
-            color="#F7A8B8"
-            size={20}
-            onPress={pickImage}
-          />
         </View>
       </SafeAreaView>
       {startOver ? (
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <FlatList
             style={{ borderWidth: 1 }}
-            data={photos}
+            data={storedPhotos}
             renderItem={renderItem}
             initialNumToRender={5}
             ItemSeparatorComponent={FlatListItemSeparator}
