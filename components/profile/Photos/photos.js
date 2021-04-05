@@ -92,13 +92,13 @@ const MyPhotos = () => {
     try {
       let generatekey = randomImageKey();
       //generatekey = JSON.stringify(generatekey);
-      console.log(generatekey);
+      //console.log(generatekey);
       console.log(`ImageUri:${image.uri}`);
       console.log(`Newfile:${directoryName}/${generatekey}`);
       await FileSystem.moveAsync({
         from: image.uri,
         to: `${directoryName}/${generatekey}`,
-      });
+      }).then(getPhotosFromFileSystem());
     } catch (error) {
       console.log(error);
     }
@@ -109,27 +109,26 @@ const MyPhotos = () => {
   const getPhotosFromFileSystem = async () => {
     try {
       let value = await FileSystem.readDirectoryAsync(directoryName);
-      console.log(`Value:${value}`);
+      //console.log(`Value:${value}`);
       value = value.map((result, i, store) => {
-        console.log(`result:${result}, i:${i}`);
+        //console.log(`result:${result}, i:${i}`);
         let key = store[i];
         let image = `${directoryName}/${result}`;
-        console.log(`key:${key}`);
-        console.log(`Image:${image}`);
         return {
           key: key,
           image: image,
         };
       });
       setPhotos(value);
+      //console.log(photos);
     } catch (e) {
       console.log(e);
     }
   };
 
-  //getPhotosFromFileSystem();
+  //console.log(`Photos.image${photos.image}`);
 
-  console.log(`Photos:${photos}`);
+  //getPhotosFromFileSystem();
 
   // const getData = async () => {
   //   try {
@@ -221,7 +220,7 @@ const MyPhotos = () => {
   }
 
   const renderItem = (props) => {
-    console.log(props);
+    //console.log(props);
     return (
       <View>
         <Image
