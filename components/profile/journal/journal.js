@@ -68,14 +68,6 @@ const Journal = ({ navigation }) => {
     closeEntry();
   };
 
-  const deleteITEM = async () => {
-    try {
-      await AsyncStorage.clear();
-    } catch (e) {
-      // clear error
-    }
-  };
-
   const getValues = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys((err, keys) => {
@@ -179,7 +171,6 @@ const Journal = ({ navigation }) => {
         <Text style={{ textAlign: 'center', paddingHorizontal: 55 }}>
           A place to record any changes to your physical or mental health
         </Text>
-        <Button title="delete" onPress={deleteITEM} />
       </SafeAreaView>
       <View style={styles.addEntryButton}>
         <Icon
@@ -226,7 +217,7 @@ const Journal = ({ navigation }) => {
           data={dataPosts}
           renderItem={renderItem}
           keyExtractor={(item) => item.key}
-          initialNumToRender={8}
+          initialNumToRender={6}
           persistentScrollbar
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={getValues} />

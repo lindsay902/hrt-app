@@ -1,13 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import EstrogenContextProvider from '../Context/HormoneLevels/estrogenLevel';
 import EstrogenHormoneLevels from '../Context/HormoneLevels/estrogenLevel';

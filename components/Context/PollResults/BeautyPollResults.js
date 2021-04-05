@@ -3,53 +3,50 @@ import { WebView } from 'react-native-webview';
 import { View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 
-const SymptomsPollContext = createContext('false');
+const BeautyPollContext = createContext('false');
 
-const useSymptomsPollResults = () => useContext(SymptomsPollContext);
+const useBeautyPollResults = () => useContext(BeautyPollContext);
 
-const SymptomsPollContextProvider = ({ children }) => {
-  const [symptomsPollResults, setSymptomsPollResults] = useState('false');
+const BeautyPollContextProvider = ({ children }) => {
+  const [beautyPollResults, setBeautyPollResults] = useState('false');
 
-  const symptomsPollCompleted = () => {
-    if (symptomsPollResults === 'false') {
-      setSymptomsPollResults('true');
+  const beautyPollCompleted = () => {
+    if (beautyPollResults === 'false') {
+      setBeautyPollResults('true');
     }
   };
 
   useEffect(() => {
-    if (symptomsPollResults !== 'false') {
-      SecureStore.setItemAsync('SymptomsPollResults', 'true');
+    if (beautyPollResults !== 'false') {
+      SecureStore.setItemAsync('BeautyPollResults', 'true');
     }
-  }, [symptomsPollResults]);
+  }, [beautyPollResults]);
 
   useEffect(() => {
-    SecureStore.getItemAsync('SymptomsPollResults').then(
+    SecureStore.getItemAsync('BeautyPollResults').then(
       (pollBooleanResponse) => {
         if (pollBooleanResponse) {
           console.log(pollBooleanResponse);
-          setSymptomsPollResults(pollBooleanResponse);
+          setBeautyPollResults(pollBooleanResponse);
         }
       },
     );
   }, []);
 
   return (
-    <SymptomsPollContext.Provider
+    <BeautyPollContext.Provider
       value={{
-        symptomsPollResults,
-        symptomsPollCompleted,
+        beautyPollResults,
+        beautyPollCompleted,
       }}
     >
       {children}
-    </SymptomsPollContext.Provider>
+    </BeautyPollContext.Provider>
   );
 };
 
-const SymptomsPollData = () => {
-  const {
-    symptomsPollResults,
-    symptomsPollCompleted,
-  } = useSymptomsPollResults();
+const BeautyPollData = () => {
+  const { beautyPollResults, beautyPollCompleted } = useBeautyPollResults();
 
   return (
     <View
@@ -57,10 +54,10 @@ const SymptomsPollData = () => {
         flex: 1,
       }}
     >
-      {symptomsPollResults === 'true' ? (
+      {beautyPollResults === 'true' ? (
         <WebView
           source={{
-            uri: 'https://my.nativeforms.com/gFUap3Yn1jZms0QmJnek1Db/results',
+            uri: 'https://my.nativeforms.com/QdxFHSC1jZms0QmJnek1Db/results',
           }}
         />
       ) : (
@@ -76,12 +73,12 @@ const SymptomsPollData = () => {
 
                 console.log(json); // JSON representation of the form
                 //console.log(formCompleted);
-                symptomsPollCompleted('true');
+                beautyPollCompleted('true');
               }
             }
           }}
           source={{
-            uri: 'https://my.nativeforms.com/gFUap3Yn1jZms0QmJnek1Db',
+            uri: 'https://my.nativeforms.com/QdxFHSC1jZms0QmJnek1Db',
           }}
         />
       )}
@@ -90,7 +87,7 @@ const SymptomsPollData = () => {
 };
 
 export default () => (
-  <SymptomsPollContextProvider>
-    <SymptomsPollData />
-  </SymptomsPollContextProvider>
+  <BeautyPollContextProvider>
+    <BeautyPollData />
+  </BeautyPollContextProvider>
 );

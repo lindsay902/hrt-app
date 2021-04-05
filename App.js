@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useMemo, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import SettingsStackScreen from './Screens/SettingsScreen';
 import Main from './Screens/MainStackScreen';
 import NavDrawer from './components/Shared/drawercontent';
 import ProfileScreen from './Screens/ProfileScreen';
@@ -12,6 +11,7 @@ import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import { AuthContext } from './components/Context/context';
 import AboutStackScreen from './Screens/AboutScreen';
+import FeedbackStackScreen from './Screens/FeedbackStackScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -58,12 +58,15 @@ function App() {
           >
             <Drawer.Screen name="HomeStackScreen" component={Main} />
             <Drawer.Screen
-              name="SettingsStackScreen"
-              component={SettingsStackScreen}
+              name="FeedbackStackScreen"
+              component={FeedbackStackScreen}
             />
             <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
             <Drawer.Screen name="Support" component={SupportStackScreen} />
-            <Drawer.Screen name="AboutStackScreen" component={AboutStackScreen} />
+            <Drawer.Screen
+              name="AboutStackScreen"
+              component={AboutStackScreen}
+            />
           </Drawer.Navigator>
         ) : (
           <RootStackScreen />

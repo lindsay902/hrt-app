@@ -114,16 +114,7 @@ const Profile = () => {
         <View style={styles.action}>
           <Icon name="account" size={20} type="material-community" />
           <TextInput
-            placeholder="First Name"
-            placeholderTextColor="#666666"
-            autoCompleteType={false}
-            style={styles.textInput}
-          />
-        </View>
-        <View style={styles.action}>
-          <Icon name="account" size={20} type="material-community" />
-          <TextInput
-            placeholder="Last Name"
+            placeholder="Name"
             placeholderTextColor="#666666"
             autoCompleteType={false}
             style={styles.textInput}
@@ -133,16 +124,6 @@ const Profile = () => {
           <Icon name="at" size={20} type="material-community" />
           <TextInput
             placeholder="Username"
-            keyboardType="email-address"
-            placeholderTextColor="#666666"
-            autoCompleteType={false}
-            style={styles.textInput}
-          />
-        </View>
-        <View style={styles.action}>
-          <Icon name="email" size={20} type="material-community" />
-          <TextInput
-            placeholder="Email"
             keyboardType="email-address"
             placeholderTextColor="#666666"
             autoCompleteType={false}

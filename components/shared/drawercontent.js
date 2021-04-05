@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { Avatar, Title, Caption, Paragraph, Drawer } from 'react-native-paper';
+import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AuthContext } from '../Context/context';
 
@@ -25,20 +25,6 @@ const NavDrawer = (props) => {
                 <Caption style={styles.caption}>@kittypryde</Caption>
               </View>
             </View>
-            {/* <View style={styles.row}>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>
-                  80
-                </Paragraph>
-                <Caption style={styles.caption}>Following</Caption>
-              </View>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>
-                  100
-                </Paragraph>
-                <Caption style={styles.caption}>Followers</Caption>
-              </View>
-            </View> */}
           </View>
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
@@ -65,7 +51,7 @@ const NavDrawer = (props) => {
               )}
               label="Feedback"
               onPress={() => {
-                props.navigation.navigate('SettingsStackScreen');
+                props.navigation.navigate('FeedbackStackScreen');
               }}
             />
             <DrawerItem

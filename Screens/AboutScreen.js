@@ -17,7 +17,7 @@ const AboutStackScreen = ({ navigation }) => {
       }}
     >
       <AboutStack.Screen
-        name="MySettings"
+        name="About"
         component={About}
         options={{
           headerLeft: () => (

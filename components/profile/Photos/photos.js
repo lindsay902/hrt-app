@@ -58,9 +58,15 @@ const MyPhotos = () => {
     getPhotosFromFileSystem();
   }, []);
 
-  const storedPhotos = photos.sort(function (a, b) {
-    return new Date(a.start).getTime() - new Date(b.start).getTime();
-  });
+  // const storedPhotos = photos.sort(function (a, b) {
+  //   let c = new Date(a.date);
+  //   console.log(c);
+  //   let d = new Date(b.date);
+  //   console.log(d);
+  //   return d - c;
+  // });
+
+  //console.log(storedPhotos);
 
   const randomImageKey = () => {
     let imageKey = 'IMG';
@@ -83,18 +89,15 @@ const MyPhotos = () => {
       quality: 0.75,
       aspect: [4, 3],
     });
-    const source = photo.uri;
     setPreviewVisible(true);
     setCapturedImage(photo);
-    await MediaLibrary.createAssetAsync(source);
     setImage(photo);
   };
 
   const saveImages = async () => {
     try {
       let generatekey = randomImageKey();
-      console.log(`ImageUri:${image.uri}`);
-      console.log(`Newfile:${directoryName}/${generatekey}`);
+      //const date = new Date().getTime();
       await FileSystem.moveAsync({
         from: image.uri,
         to: `${directoryName}/${generatekey}`,
@@ -107,18 +110,21 @@ const MyPhotos = () => {
   const getPhotosFromFileSystem = async () => {
     try {
       let value = await FileSystem.readDirectoryAsync(directoryName);
-      let date = new Date(Date.now());
-      const dateToday = date.toDateString();
-      //console.log(`Value:${value}`);
       value = value.map((result, i, store) => {
-        //console.log(`result:${result}, i:${i}`);
+        console.log(`result:${result}, i:${i}, store:${store}`);
+        // const timestamp = store[i].slice(39);
+        // const formattedDate = new Date(timestamp);
+        // const newDate = formattedDate.prototype.getTime();
+        // console.log(`typeof: ${typeof formattedDate}`);
+        // console.log(`converted Date: ${newDate}`);
+        // console.log(`Timestamp: ${timestamp}`);
         let key = store[i];
         let image = `${directoryName}/${result}`;
-        let date = dateToday;
+        //let date = newDate;
         return {
           key: key,
           image: image,
-          date: date,
+          //date: date,
         };
       });
       setPhotos(value);
@@ -128,11 +134,13 @@ const MyPhotos = () => {
     }
   };
 
+  //getPhotosFromFileSystem();
+
   const FlatListItemSeparator = () => {
     return (
       <View
         style={{
-          height: 10,
+          height: 15,
           width: '100%',
           backgroundColor: 'white',
         }}
@@ -145,24 +153,10 @@ const MyPhotos = () => {
     setStartOver(true);
   };
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          // eslint-disable-next-line no-alert
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-  }, []);
-
   const removeValue = async (uri) => {
     Alert.alert(
-      'Delete post?',
-      'Confirm post deletion',
+      'Delete photo above?',
+      'Confirm photo deletion',
       [
         {
           text: 'Cancel',
@@ -195,7 +189,6 @@ const MyPhotos = () => {
   }
 
   const renderItem = (props) => {
-    console.log(props);
     return (
       <View>
         <Image
@@ -270,7 +263,7 @@ const MyPhotos = () => {
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <FlatList
             style={{ borderWidth: 1 }}
-            data={storedPhotos}
+            data={photos}
             renderItem={renderItem}
             initialNumToRender={5}
             ItemSeparatorComponent={FlatListItemSeparator}
