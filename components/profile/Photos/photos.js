@@ -148,6 +148,15 @@ const MyPhotos = () => {
     );
   };
 
+  const ListEmptyComponent = () => {
+    return (
+      <Image
+        source={require('../../../assets/addphotoshere.png')}
+        style={{ width: 400, height: 400, marginLeft: 40 }}
+      />
+    );
+  };
+
   const handleImage = async () => {
     await saveImages();
     setStartOver(true);
@@ -267,6 +276,7 @@ const MyPhotos = () => {
             renderItem={renderItem}
             initialNumToRender={5}
             ItemSeparatorComponent={FlatListItemSeparator}
+            ListEmptyComponent={ListEmptyComponent}
           />
         </View>
       ) : (

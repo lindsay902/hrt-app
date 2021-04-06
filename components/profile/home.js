@@ -62,62 +62,91 @@ const Home = ({ navigation }) => {
           }}
         >
           <View>
-            <Image
+            <View style={{ marginBottom: 20 }}>
+              <Icon
+                name="clipboard-pulse-outline"
+                type="material-community"
+                size={150}
+                color={'black'}
+              />
+            </View>
+            {/* <Image
               style={styles.image}
               source={require('../../assets/resources/polls/Symptoms.png')}
-            />
+            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
                 navigation.navigate('SymptomsPoll');
               }}
             >
-              <Text style={styles.participateButton}>Participate</Text>
+              <Text style={styles.participateButton}>Symptoms</Text>
             </TouchableOpacity>
           </View>
           <View>
-            {/* <View style={{ marginBottom: 20 }}>
-              <Icon name="head-heart" type="material-community" size={160} />
-            </View> */}
-            <Image
+            <View style={{ marginBottom: 20 }}>
+              <Icon
+                name="head-heart"
+                type="material-community"
+                size={150}
+                color={'black'}
+              />
+            </View>
+            {/* <Image
               style={styles.image}
               source={require('../../assets/resources/polls/MentalHealth.png')}
-            />
+            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
                 navigation.navigate('MentalHealthPoll');
               }}
             >
-              <Text style={styles.participateButton}>Participate</Text>
+              <Text style={styles.participateButton}>Mental Health</Text>
             </TouchableOpacity>
           </View>
           <View>
-            <Image
+            <View style={{ marginBottom: 20 }}>
+              <Icon
+                name="spa"
+                type="material-community"
+                size={150}
+                color={'black'}
+              />
+            </View>
+            {/* <Image
               style={styles.image}
               source={require('../../assets/resources/polls/Beauty.png')}
-            />
+            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
                 navigation.navigate('BeautyPoll');
               }}
             >
-              <Text style={styles.participateButton}>Participate</Text>
+              <Text style={styles.participateButton}>Beauty</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.button}>
-            <Image
+            <View style={{ marginBottom: 20 }}>
+              <Icon
+                name="account-heart"
+                type="material-community"
+                size={150}
+                color={'black'}
+              />
+            </View>
+            {/* <Image
               style={styles.image}
               source={require('../../assets/resources/polls/Relationships.png')}
-            />
+            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
                 navigation.navigate('RelationshipsPoll');
               }}
             >
-              <Text style={styles.participateButton}>Participate</Text>
+              <Text style={styles.participateButton}>Relationships</Text>
             </TouchableOpacity>
           </View>
         </View>

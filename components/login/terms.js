@@ -4,9 +4,10 @@ import { WebView } from 'react-native-webview';
 function Terms(props) {
   return (
     <WebView
+      style={{ flex: 1 }}
       source={{
         uri:
-          'https://app.termly.io/builder/websites/833874/documents/1133818/Final%20Details/Version%20Date',
+          'https://www.freeprivacypolicy.com/live/c4c3423a-5f2f-463d-aaff-745f1ba9f2c0',
       }}
     />
   );
