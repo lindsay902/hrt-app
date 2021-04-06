@@ -15,7 +15,7 @@ function Main() {
         name="Home"
         component={HomeStackScreen}
         // eslint-disable-next-line react-native/no-inline-styles
-        barStyle={{ paddingBottom: 25, paddingTop: 15 }}
+        barStyle={{ paddingBottom: 15, paddingTop: 15 }}
         options={{
           tabBarLabel: 'Home',
           tabBarColor: 'black',

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,17 +7,13 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
-  Platform,
 } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
-import * as MediaLibrary from 'expo-media-library';
 import { SafeAreaView } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Icon } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
-import { v4 as uuidv4 } from 'uuid';
 import * as FileSystem from 'expo-file-system';
 import { Alert } from 'react-native';
 
@@ -58,22 +54,7 @@ const MyPhotos = () => {
     getPhotosFromFileSystem();
   }, []);
 
-  // const storedPhotos = photos.sort(function (a, b) {
-  //   let c = new Date(a.date);
-  //   console.log(c);
-  //   let d = new Date(b.date);
-  //   console.log(d);
-  //   return d - c;
-  // });
-
-  //console.log(storedPhotos);
-
-  const randomImageKey = () => {
-    let imageKey = 'IMG';
-    let num = uuidv4();
-    imageKey += num;
-    return imageKey;
-  };
+  const storedPhotos = photos.reverse();
 
   const __closeCamera = () => {
     setStartOver(true);
@@ -96,7 +77,6 @@ const MyPhotos = () => {
 
   const saveImages = async () => {
     try {
-      let generatekey = randomImageKey();
       const date = new Date();
       const time = date.getTime();
       console.log(date);
@@ -114,18 +94,12 @@ const MyPhotos = () => {
     try {
       let value = await FileSystem.readDirectoryAsync(directoryName);
       value = value.map((result, i, store) => {
-        //console.log(`result:${result}, i:${i}, store:${store}`);
         const photoTimestamp = store[i];
         const photoTimeFormatted = Intl.DateTimeFormat('en-US', {
           month: 'long',
           year: 'numeric',
           day: 'numeric',
         }).format(photoTimestamp);
-        // const formattedDate = new Date(timestamp);
-        // const newDate = formattedDate.prototype.getTime();
-        // console.log(`typeof: ${typeof formattedDate}`);
-        // console.log(`converted Date: ${newDate}`);
-        // console.log(`Timestamp: ${timestamp}`);
         let key = store[i];
         let image = `${directoryName}/${result}`;
         let date = photoTimeFormatted;
@@ -136,13 +110,10 @@ const MyPhotos = () => {
         };
       });
       setPhotos(value);
-      //console.log(photos);
     } catch (e) {
       console.log(e);
     }
   };
-
-  //getPhotosFromFileSystem();
 
   const FlatListItemSeparator = () => {
     return (
@@ -280,7 +251,7 @@ const MyPhotos = () => {
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <FlatList
             style={{ borderWidth: 1 }}
-            data={photos}
+            data={storedPhotos}
             renderItem={renderItem}
             initialNumToRender={5}
             ItemSeparatorComponent={FlatListItemSeparator}
