@@ -97,10 +97,13 @@ const MyPhotos = () => {
   const saveImages = async () => {
     try {
       let generatekey = randomImageKey();
-      //const date = new Date().getTime();
+      const date = new Date();
+      const time = date.getTime();
+      console.log(date);
+      console.log(time);
       await FileSystem.moveAsync({
         from: image.uri,
-        to: `${directoryName}/${generatekey}`,
+        to: `${directoryName}/${time}`,
       }).then(getPhotosFromFileSystem());
     } catch (error) {
       console.log(error);
@@ -111,8 +114,13 @@ const MyPhotos = () => {
     try {
       let value = await FileSystem.readDirectoryAsync(directoryName);
       value = value.map((result, i, store) => {
-        console.log(`result:${result}, i:${i}, store:${store}`);
-        // const timestamp = store[i].slice(39);
+        //console.log(`result:${result}, i:${i}, store:${store}`);
+        const photoTimestamp = store[i];
+        const photoTimeFormatted = Intl.DateTimeFormat('en-US', {
+          month: 'long',
+          year: 'numeric',
+          day: 'numeric',
+        }).format(photoTimestamp);
         // const formattedDate = new Date(timestamp);
         // const newDate = formattedDate.prototype.getTime();
         // console.log(`typeof: ${typeof formattedDate}`);
@@ -120,11 +128,11 @@ const MyPhotos = () => {
         // console.log(`Timestamp: ${timestamp}`);
         let key = store[i];
         let image = `${directoryName}/${result}`;
-        //let date = newDate;
+        let date = photoTimeFormatted;
         return {
           key: key,
           image: image,
-          //date: date,
+          date: date,
         };
       });
       setPhotos(value);

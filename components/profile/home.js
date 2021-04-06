@@ -62,7 +62,7 @@ const Home = ({ navigation }) => {
           }}
         >
           <View>
-            <View style={{ marginBottom: 20 }}>
+            <View style={{ marginBottom: 25 }}>
               <Icon
                 name="clipboard-pulse-outline"
                 type="material-community"
@@ -84,7 +84,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View>
-            <View style={{ marginBottom: 20 }}>
+            <View style={{ marginBottom: 25 }}>
               <Icon
                 name="head-heart"
                 type="material-community"
@@ -106,7 +106,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View>
-            <View style={{ marginBottom: 20 }}>
+            <View style={{ marginBottom: 25 }}>
               <Icon
                 name="spa"
                 type="material-community"
@@ -128,7 +128,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.button}>
-            <View style={{ marginBottom: 20 }}>
+            <View style={{ marginBottom: 25 }}>
               <Icon
                 name="account-heart"
                 type="material-community"
