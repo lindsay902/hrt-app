@@ -8,6 +8,7 @@ import TestosteroneContextProvider from '../Context/HormoneLevels/testosteroneLe
 import TestosteroneHormoneLevels from '../Context/HormoneLevels/testosteroneLevel';
 import PotassiumContextProvider from '../Context/HormoneLevels/potassiumLevel';
 import PotassiumHormoneLevels from '../Context/HormoneLevels/potassiumLevel';
+import { Icon } from 'react-native-elements';
 
 const Home = ({ navigation }) => {
   const [loaded] = useFonts({
@@ -75,6 +76,9 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View>
+            {/* <View style={{ marginBottom: 20 }}>
+              <Icon name="head-heart" type="material-community" size={160} />
+            </View> */}
             <Image
               style={styles.image}
               source={require('../../assets/resources/polls/MentalHealth.png')}

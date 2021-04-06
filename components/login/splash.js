@@ -6,6 +6,7 @@ import { Button, View, StyleSheet, TextInput, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
+import PrivacyPolicy from './privacypolicy';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
@@ -30,6 +31,18 @@ const WelcomeScreen = ({ navigation }) => {
           This app was made for trans women to track their hormone levels and
           log their progress along this journey.
         </Text>
+        <View style={{ marginTop: 15 }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('PrivacyPolicy')}
+          >
+            <Text>Privacy Policy</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Terms')}>
+            <Text>Terms & Conditions</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}

@@ -17,13 +17,14 @@ const NavDrawer = (props) => {
               style={{ flexDirection: 'row', marginTop: 15, marginBottom: 10 }}
             >
               <Avatar.Image
-                source={require('../../assets/kitty.jpg')}
+                source={require('../../assets/butterfly.png')}
                 size={60}
+                style={{ backgroundColor: 'white' }}
               />
-              <View style={styles.profileColumn}>
-                <Title style={styles.title}>Kitty Pryde</Title>
-                <Caption style={styles.caption}>@kittypryde</Caption>
-              </View>
+              {/* <View style={styles.profileColumn}>
+                <Title style={styles.title}>Transformation</Title>
+                <Caption style={styles.caption}>Main Menu</Caption>
+              </View> */}
             </View>
           </View>
           <Drawer.Section style={styles.drawerSection}>
@@ -36,7 +37,8 @@ const NavDrawer = (props) => {
                 props.navigation.navigate('Home');
               }}
             />
-            <DrawerItem
+            {/*No current need for a profile - may implement later */}
+            {/* <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="account-heart" color={color} size={size} />
               )}
@@ -44,10 +46,10 @@ const NavDrawer = (props) => {
               onPress={() => {
                 props.navigation.navigate('ProfileScreen');
               }}
-            />
+            /> */}
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="brain" color={color} size={size} />
+                <Icon name="thought-bubble-outline" color={color} size={size} />
               )}
               label="Feedback"
               onPress={() => {
@@ -56,7 +58,7 @@ const NavDrawer = (props) => {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="heart-multiple" color={color} size={size} />
+                <Icon name="heart-multiple-outline" color={color} size={size} />
               )}
               label="Support"
               onPress={() => {
@@ -80,7 +82,7 @@ const NavDrawer = (props) => {
           icon={({ color, size }) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
-          label="Log Out"
+          label="Back to Main Page"
           onPress={signOut}
         />
       </Drawer.Section>
