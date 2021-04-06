@@ -7,6 +7,7 @@ import SignInScreen from '../components/Login/signin';
 import WelcomeScreen from '../components/Login/splash';
 import PrivacyPolicy from '../components/Login/privacypolicy';
 import Terms from '../components/Login/terms';
+import DrawerNavigator from './DrawerNavigator';
 
 const RootStack = createStackNavigator();
 

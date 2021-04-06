@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Image } from 'react-native';
 import { Text } from 'react-native';
 import { Button, View, StyleSheet, TextInput, Dimensions } from 'react-native';
@@ -7,8 +7,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
 import PrivacyPolicy from './privacypolicy';
+import { AuthContext } from '../Context/context';
 
 const WelcomeScreen = ({ navigation }) => {
+  const { signIn } = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -44,10 +47,7 @@ const WelcomeScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity
-            style={styles.signIn}
-            onPress={() => navigation.navigate('SignInScreen')}
-          >
+          <TouchableOpacity style={styles.signIn} onPress={signIn}>
             <Text style={styles.textSign}>Get Started</Text>
             <MaterialIcons name="navigate-next" color="#fff" size={20} />
           </TouchableOpacity>

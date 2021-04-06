@@ -1,11 +1,13 @@
 // import React from 'react';
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createDrawerNavigator } from '@react-navigation/drawer';
-// import SettingsStackScreen from './Screens/SettingsScreen';
-// import Main from './Screens/MainStackScreen';
-// import NavDrawer from './components/Shared/drawercontent';
-// import ProfileScreen from './Screens/ProfileScreen';
-// import SupportStackScreen from './Screens/SupportScreen';
+// //import SettingsStackScreen from './Screens/SettingsScreen';
+// import Main from '../Screens/MainStackScreen';
+// import NavDrawer from '../components/Shared/drawercontent';
+// //import ProfileScreen from './Screens/ProfileScreen';
+// import SupportStackScreen from '../Screens/SupportScreen';
+// import FeedbackStackScreen from '../Screens/FeedbackStackScreen';
+// import AboutStackScreen from '../Screens/AboutScreen';
 
 // const Drawer = createDrawerNavigator();
 
@@ -16,13 +18,13 @@
 //         initialRouteName="Home"
 //         drawerContent={(props) => <NavDrawer {...props} />}
 //       >
-//         <Drawer.Screen name="HomeStackScreen" component={Main} />
+//         <Drawer.Screen name="Main" component={Main} />
 //         <Drawer.Screen
-//           name="SettingsStackScreen"
-//           component={SettingsStackScreen}
+//           name="FeedbackStackScreen"
+//           component={FeedbackStackScreen}
 //         />
-//         <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
 //         <Drawer.Screen name="Support" component={SupportStackScreen} />
+//         <Drawer.Screen name="AboutStackScreen" component={AboutStackScreen} />
 //       </Drawer.Navigator>
 //     </NavigationContainer>
 //   );

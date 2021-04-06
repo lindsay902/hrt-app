@@ -1,3 +1,5 @@
+//Not implementing at this time
+
 // import { LinearGradient } from 'expo-linear-gradient';
 // import React, { useState } from 'react';
 // import { StyleSheet, Image, View, Dimensions, Text } from 'react-native';
