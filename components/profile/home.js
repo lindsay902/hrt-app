@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import EstrogenContextProvider from '../Context/HormoneLevels/estrogenLevel';
 import EstrogenHormoneLevels from '../Context/HormoneLevels/estrogenLevel';
@@ -70,10 +70,6 @@ const Home = ({ navigation }) => {
                 color={'black'}
               />
             </View>
-            {/* <Image
-              style={styles.image}
-              source={require('../../assets/resources/polls/Symptoms.png')}
-            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {

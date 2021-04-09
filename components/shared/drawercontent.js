@@ -3,10 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AuthContext } from '../Context/context';
+import WelcomeScreen from '../Login/splash';
+import { ProgressViewIOSComponent } from 'react-native';
 
 const NavDrawer = (props) => {
-  const { signOut } = useContext(AuthContext);
+  //const { signOut } = useContext(AuthContext);
 
   return (
     <View style={{ flex: 1 }}>
@@ -83,7 +84,9 @@ const NavDrawer = (props) => {
             <Icon name="exit-to-app" color={color} size={size} />
           )}
           label="Back to Main Page"
-          onPress={signOut}
+          onPress={() => {
+            props.navigation.navigate('Welcome');
+          }}
         />
       </Drawer.Section>
     </View>

@@ -28,7 +28,6 @@ const MentalHealthPollContextProvider = ({ children }) => {
     SecureStore.getItemAsync('MentalHealthPollResults').then(
       (pollBooleanResponse) => {
         if (pollBooleanResponse) {
-          console.log(pollBooleanResponse);
           setMentalHealthPollResults(pollBooleanResponse);
         }
       },
@@ -74,10 +73,8 @@ const MentalHealthPollData = () => {
               const { event, form, json } = eventJSON.nf_event;
 
               if (event === 'form_send') {
-                console.log(form); // form responses
-
-                console.log(json); // JSON representation of the form
-                //console.log(formCompleted);
+                //console.log(form); // form responses
+                //console.log(json); // JSON representation of the form
                 mentalHealthPollCompleted('true');
               }
             }

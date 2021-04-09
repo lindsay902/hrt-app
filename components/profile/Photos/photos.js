@@ -41,6 +41,13 @@ const MyPhotos = () => {
   const [photos, setPhotos] = useState([]);
   const [image, setImage] = useState(null);
 
+  //sorting photos so they render in reverse chronological order
+  const sortedPhotos = photos.sort(function (a, b) {
+    var c = new Date(a.date);
+    var d = new Date(b.date);
+    return d - c;
+  });
+
   let camera = Camera;
 
   useEffect(() => {
@@ -53,8 +60,6 @@ const MyPhotos = () => {
   useEffect(() => {
     getPhotosFromFileSystem();
   }, []);
-
-  const storedPhotos = photos.reverse();
 
   const __closeCamera = () => {
     setStartOver(true);
@@ -77,10 +82,9 @@ const MyPhotos = () => {
 
   const saveImages = async () => {
     try {
+      //Date timestamp is used as the filename as a way of storing this information
       const date = new Date();
       const time = date.getTime();
-      console.log(date);
-      console.log(time);
       await FileSystem.moveAsync({
         from: image.uri,
         to: `${directoryName}/${time}`,
@@ -94,6 +98,7 @@ const MyPhotos = () => {
     try {
       let value = await FileSystem.readDirectoryAsync(directoryName);
       value = value.map((result, i, store) => {
+        //converting the filename which also serves as a timestamp (readDirectoryAsync only returns the filename, this is my way around saving date)
         const photoTimestamp = store[i];
         const photoTimeFormatted = Intl.DateTimeFormat('en-US', {
           month: 'long',
@@ -251,7 +256,7 @@ const MyPhotos = () => {
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <FlatList
             style={{ borderWidth: 1 }}
-            data={storedPhotos}
+            data={sortedPhotos}
             renderItem={renderItem}
             initialNumToRender={5}
             ItemSeparatorComponent={FlatListItemSeparator}
