@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, SafeAreaView, Button } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 function PrivacyPolicy({ navigation }) {

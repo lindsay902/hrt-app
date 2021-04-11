@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
+import { Avatar, Drawer } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import WelcomeScreen from '../Login/splash';
-import { ProgressViewIOSComponent } from 'react-native';
 
 const NavDrawer = (props) => {
   //const { signOut } = useContext(AuthContext);
@@ -22,10 +20,6 @@ const NavDrawer = (props) => {
                 size={60}
                 style={{ backgroundColor: 'white' }}
               />
-              {/* <View style={styles.profileColumn}>
-                <Title style={styles.title}>Transformation</Title>
-                <Caption style={styles.caption}>Main Menu</Caption>
-              </View> */}
             </View>
           </View>
           <Drawer.Section style={styles.drawerSection}>
