@@ -5,9 +5,9 @@ import { Image } from 'react-native';
 
 const NonFictionBooks = () => {
   return (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
-      <View style={{ marginLeft: -140 }}>
-        <Text style={styles.nonfiction}> Non-Fiction </Text>
+    <View style={{ flex: 1, marginTop: '5%' }}>
+      <View style={{ alignItems: 'center', marginBottom: '-5%' }}>
+        <Text style={{ fontWeight: 'bold' }}>Non-Fiction</Text>
       </View>
       <ViewPager
         style={styles.viewPager}
@@ -103,9 +103,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cover: {
-    width: '90%',
-    height: '75%',
+    maxWidth: '70%',
+    maxHeight: '70%',
     borderRadius: 5,
+    resizeMode: 'contain',
   },
   bookTitle: {
     fontStyle: 'italic',

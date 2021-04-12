@@ -9,6 +9,7 @@ import TestosteroneHormoneLevels from '../Context/HormoneLevels/testosteroneLeve
 import PotassiumContextProvider from '../Context/HormoneLevels/potassiumLevel';
 import PotassiumHormoneLevels from '../Context/HormoneLevels/potassiumLevel';
 import { Icon } from 'react-native-elements';
+import { Image } from 'react-native';
 
 const Home = ({ navigation }) => {
   const [loaded] = useFonts({
@@ -42,8 +43,8 @@ const Home = ({ navigation }) => {
         <View
           style={{
             alignItems: 'center',
-            paddingTop: 20,
-            paddingHorizontal: 70,
+            paddingTop: '5%',
+            paddingHorizontal: '25%',
           }}
         >
           <Text style={{ textAlign: 'center' }}>
@@ -52,13 +53,15 @@ const Home = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <View style={{ flex: 1, marginTop: -100 }}>
+      <View style={{ flex: 1, marginTop: '-25%', marginBottom: '-5%' }}>
         <Text style={styles.textStyle}>Community Questions</Text>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
             flexWrap: 'wrap',
+            width: 400,
+            marginTop: '5%',
           }}
         >
           <View>
@@ -66,7 +69,7 @@ const Home = ({ navigation }) => {
               <Icon
                 name="clipboard-pulse-outline"
                 type="material-community"
-                size={150}
+                size={140}
                 color={'black'}
               />
             </View>
@@ -84,14 +87,10 @@ const Home = ({ navigation }) => {
               <Icon
                 name="head-heart"
                 type="material-community"
-                size={150}
+                size={140}
                 color={'black'}
               />
             </View>
-            {/* <Image
-              style={styles.image}
-              source={require('../../assets/resources/polls/MentalHealth.png')}
-            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
@@ -101,19 +100,15 @@ const Home = ({ navigation }) => {
               <Text style={styles.participateButton}>Mental Health</Text>
             </TouchableOpacity>
           </View>
-          <View>
+          <View style={{ marginTop: '2%' }}>
             <View style={{ marginBottom: 25 }}>
               <Icon
                 name="spa"
                 type="material-community"
-                size={150}
+                size={140}
                 color={'black'}
               />
             </View>
-            {/* <Image
-              style={styles.image}
-              source={require('../../assets/resources/polls/Beauty.png')}
-            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
@@ -123,19 +118,15 @@ const Home = ({ navigation }) => {
               <Text style={styles.participateButton}>Beauty</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.button}>
+          <View style={{ marginTop: '2%' }}>
             <View style={{ marginBottom: 25 }}>
               <Icon
                 name="account-heart"
                 type="material-community"
-                size={150}
+                size={140}
                 color={'black'}
               />
             </View>
-            {/* <Image
-              style={styles.image}
-              source={require('../../assets/resources/polls/Relationships.png')}
-            /> */}
             <TouchableOpacity
               style={styles.buttons}
               onPress={() => {
@@ -157,17 +148,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   hormoneContainer: {
+    justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: '5%',
   },
   hormones: {
-    marginLeft: 25,
-    marginRight: 25,
     alignItems: 'center',
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   buttons: {
     backgroundColor: 'white',
@@ -177,18 +168,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     paddingTop: 5,
-    shadowColor: 'grey',
-    shadowOpacity: 10,
+    shadowColor: 'black',
+    shadowOpacity: 80,
   },
   textStyle: {
     fontFamily: 'HandleeRegular',
     fontSize: 30,
     alignSelf: 'center',
-    paddingBottom: 10,
   },
   image: {
-    width: 175,
-    height: 175,
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
   },
   participateButton: {
     color: 'black',

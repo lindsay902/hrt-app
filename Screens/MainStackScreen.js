@@ -14,7 +14,7 @@ function Main() {
       <Tab.Screen
         name="Home"
         component={HomeStackScreen}
-        barStyle={{ paddingBottom: 15, paddingTop: 15 }}
+        barStyle={{ marginHorizontal: 15, paddingTop: 15 }}
         options={{
           tabBarLabel: 'Home',
           tabBarColor: 'black',

@@ -134,10 +134,12 @@ const MyPhotos = () => {
 
   const ListEmptyComponent = () => {
     return (
-      <Image
-        source={require('../../../assets/addphotoshere.png')}
-        style={{ width: 400, height: 400, marginLeft: 40 }}
-      />
+      <View style={{ alignItems: 'flex-end' }}>
+        <Image
+          source={require('../../../assets/addphotoshere.png')}
+          style={{ width: 400, height: 400 }}
+        />
+      </View>
     );
   };
 

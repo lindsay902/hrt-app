@@ -71,12 +71,13 @@ const styles = StyleSheet.create({
   },
   headerLogo: {
     paddingBottom: 850,
+    alignItems: 'center',
   },
   logo: {
     width: height_logo,
     height: height_logo,
-    top: 40,
-    right: 20,
+    // top: 40,
+    // right: 20,
   },
   footer: {
     flex: 0.5,
