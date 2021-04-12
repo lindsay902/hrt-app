@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 8,
     borderRadius: 10,
-    marginBottom: 150,
+    marginBottom: 250,
   },
   paragraph: {
     marginTop: 34,
