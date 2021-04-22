@@ -17,6 +17,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import createRandomId from '../../Shared/createid';
 import { RefreshControl } from 'react-native';
 import { useFonts } from 'expo-font';
+import { StatusBar } from 'react-native';
 
 const Journal = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null);
@@ -163,6 +164,7 @@ const Journal = ({ navigation }) => {
       style={styles.backgroundImage}
     >
       <SafeAreaView>
+        <StatusBar barStyle="dark-content" />
         <View style={styles.header}>
           <Text style={{ fontFamily: 'HandleeRegular', fontSize: 30 }}>
             My Journal
