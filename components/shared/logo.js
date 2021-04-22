@@ -3,7 +3,10 @@ import { Image, StyleSheet } from 'react-native';
 
 const Logo = () => {
   return (
-    <Image style={styles.logo} source={require('../../assets/butterfly.png')} />
+    <Image
+      style={styles.logo}
+      source={require('../../assets/preload/butterfly.png')}
+    />
   );
 };
 

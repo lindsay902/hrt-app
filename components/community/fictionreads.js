@@ -5,12 +5,12 @@ import { Image } from 'react-native';
 
 const FictionBooks = () => {
   return (
-    <View style={{ flex: 1, marginTop: '5%' }}>
+    <View style={{ flex: 1, marginTop: '8%' }}>
       {/* <View style={{ marginLeft: -140 }}>
         <Text style={styles.fiction}> Fiction </Text>
       </View> */}
       <View style={{ alignItems: 'center', marginBottom: '-5%' }}>
-        <Text style={{ fontWeight: 'bold' }}>Fiction</Text>
+        <Text style={{ fontWeight: 'bold', marginTop: '-5%' }}>Fiction</Text>
       </View>
       <ViewPager
         style={styles.viewPager}

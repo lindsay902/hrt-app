@@ -16,7 +16,7 @@ const NavDrawer = (props) => {
               style={{ flexDirection: 'row', marginTop: 15, marginBottom: 10 }}
             >
               <Avatar.Image
-                source={require('../../assets/butterfly.png')}
+                source={require('../../assets/preload/butterfly.png')}
                 size={60}
                 style={{ backgroundColor: 'white' }}
               />

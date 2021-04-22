@@ -5,9 +5,11 @@ import { Image } from 'react-native';
 
 const NonFictionBooks = () => {
   return (
-    <View style={{ flex: 1, marginTop: '5%' }}>
+    <View style={{ flex: 1, marginTop: '8%' }}>
       <View style={{ alignItems: 'center', marginBottom: '-5%' }}>
-        <Text style={{ fontWeight: 'bold' }}>Non-Fiction</Text>
+        <Text style={{ fontWeight: 'bold', marginTop: '-5%' }}>
+          Non-Fiction
+        </Text>
       </View>
       <ViewPager
         style={styles.viewPager}

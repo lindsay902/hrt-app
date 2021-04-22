@@ -28,6 +28,7 @@ function Main() {
         component={Journal}
         options={{
           tabBarLabel: 'Journal',
+          barStyle: 'dark',
           tabBarColor: '#F7A8B8',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-pencil" color={color} size={26} />

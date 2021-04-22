@@ -25,10 +25,10 @@ const Journal = ({ navigation }) => {
   const [postText, setPostText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
-  const dataPosts = items.sort(function (a, b) {
-    var c = new Date(a.date);
-    var d = new Date(b.date);
-    return d - c;
+  const sortedItems = items.sort(function (a, b) {
+    var dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB - dateA;
   });
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const Journal = ({ navigation }) => {
 
   return (
     <ImageBackground
-      source={require('../../../assets/journalbackground.png')}
+      source={require('../../../assets/preload/journalbackground.png')}
       style={styles.backgroundImage}
     >
       <SafeAreaView>
@@ -214,7 +214,7 @@ const Journal = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <FlatList
           contentContainerStyle={{ paddingBottom: 40 }}
-          data={dataPosts}
+          data={sortedItems}
           renderItem={renderItem}
           keyExtractor={(item) => item.key}
           initialNumToRender={6}

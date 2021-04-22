@@ -18,7 +18,7 @@ const WelcomeScreen = ({ navigation }) => {
         >
           <View style={styles.headerLogo}>
             <Image
-              source={require('../../assets/transformation.png')}
+              source={require('../../assets/preload/transformation.png')}
               style={styles.logo}
             />
           </View>

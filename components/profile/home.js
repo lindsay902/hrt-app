@@ -10,6 +10,7 @@ import PotassiumContextProvider from '../Context/HormoneLevels/potassiumLevel';
 import PotassiumHormoneLevels from '../Context/HormoneLevels/potassiumLevel';
 import { Icon } from 'react-native-elements';
 import { Image } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 const Home = ({ navigation }) => {
   const [loaded] = useFonts({
@@ -27,117 +28,123 @@ const Home = ({ navigation }) => {
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <View style={{ flex: 1 }}>
-        <Text style={styles.textStyle}>My Hormone Levels</Text>
-        <View style={styles.hormoneContainer}>
-          <EstrogenContextProvider>
-            <EstrogenHormoneLevels />
-          </EstrogenContextProvider>
-          <TestosteroneContextProvider>
-            <TestosteroneHormoneLevels />
-          </TestosteroneContextProvider>
-          <PotassiumContextProvider>
-            <PotassiumHormoneLevels />
-          </PotassiumContextProvider>
-        </View>
-        <View
-          style={{
-            alignItems: 'center',
-            paddingTop: '5%',
-            paddingHorizontal: '25%',
-          }}
-        >
-          <Text style={{ textAlign: 'center' }}>
-            For information on hormone levels and hormone therapy, talk to your
-            health care provider.
-          </Text>
-        </View>
-      </View>
-      <View style={{ flex: 1, marginTop: '-25%', marginBottom: '-5%' }}>
-        <Text style={styles.textStyle}>Community Questions</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            flexWrap: 'wrap',
-            width: 400,
-            marginTop: '5%',
-          }}
-        >
-          <View>
-            <View style={{ marginBottom: 25 }}>
-              <Icon
-                name="clipboard-pulse-outline"
-                type="material-community"
-                size={140}
-                color={'black'}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => {
-                navigation.navigate('SymptomsPoll');
-              }}
-            >
-              <Text style={styles.participateButton}>Symptoms</Text>
-            </TouchableOpacity>
+      <SafeAreaView>
+        <View style={{ flex: 1, marginBottom: '-5%' }}>
+          <View style={{ paddingTop: '1%', marginBottom: '-2%' }}>
+            <Text style={styles.textStyle}>My Hormone Levels</Text>
           </View>
-          <View>
-            <View style={{ marginBottom: 25 }}>
-              <Icon
-                name="head-heart"
-                type="material-community"
-                size={140}
-                color={'black'}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => {
-                navigation.navigate('MentalHealthPoll');
-              }}
-            >
-              <Text style={styles.participateButton}>Mental Health</Text>
-            </TouchableOpacity>
+          <View style={styles.hormoneContainer}>
+            <EstrogenContextProvider>
+              <EstrogenHormoneLevels />
+            </EstrogenContextProvider>
+            <TestosteroneContextProvider>
+              <TestosteroneHormoneLevels />
+            </TestosteroneContextProvider>
+            <PotassiumContextProvider>
+              <PotassiumHormoneLevels />
+            </PotassiumContextProvider>
           </View>
-          <View style={{ marginTop: '2%' }}>
-            <View style={{ marginBottom: 25 }}>
-              <Icon
-                name="spa"
-                type="material-community"
-                size={140}
-                color={'black'}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => {
-                navigation.navigate('BeautyPoll');
-              }}
-            >
-              <Text style={styles.participateButton}>Beauty</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ marginTop: '2%' }}>
-            <View style={{ marginBottom: 25 }}>
-              <Icon
-                name="account-heart"
-                type="material-community"
-                size={140}
-                color={'black'}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => {
-                navigation.navigate('RelationshipsPoll');
-              }}
-            >
-              <Text style={styles.participateButton}>Relationships</Text>
-            </TouchableOpacity>
+          <View
+            style={{
+              alignItems: 'center',
+              //paddingTop: '2%',
+              paddingHorizontal: '25%',
+              verticalAlign: 'center',
+            }}
+          >
+            <Text style={{ textAlign: 'center' }}>
+              For information on hormone levels and hormone therapy, talk to
+              your health care provider.
+            </Text>
           </View>
         </View>
-      </View>
+        <View style={{ flex: 1, alignItems: 'center', marginTop: '-5%' }}>
+          <Text style={styles.textStyle}>Community Questions</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              flexWrap: 'wrap',
+              width: 400,
+              //marginTop: '2%',
+              marginBottom: '5%',
+            }}
+          >
+            <View>
+              <View style={{ marginBottom: 25 }}>
+                <Icon
+                  name="clipboard-pulse-outline"
+                  type="material-community"
+                  size={140}
+                  color={'black'}
+                />
+              </View>
+              <TouchableOpacity
+                style={styles.buttons}
+                onPress={() => {
+                  navigation.navigate('SymptomsPoll');
+                }}
+              >
+                <Text style={styles.participateButton}>Symptoms</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <View style={{ marginBottom: 25 }}>
+                <Icon
+                  name="head-heart"
+                  type="material-community"
+                  size={140}
+                  color={'black'}
+                />
+              </View>
+              <TouchableOpacity
+                style={styles.buttons}
+                onPress={() => {
+                  navigation.navigate('MentalHealthPoll');
+                }}
+              >
+                <Text style={styles.participateButton}>Mental Health</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginTop: '2%' }}>
+              <View style={{ marginBottom: 25 }}>
+                <Icon
+                  name="spa"
+                  type="material-community"
+                  size={140}
+                  color={'black'}
+                />
+              </View>
+              <TouchableOpacity
+                style={styles.buttons}
+                onPress={() => {
+                  navigation.navigate('BeautyPoll');
+                }}
+              >
+                <Text style={styles.participateButton}>Beauty</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ marginTop: '2%' }}>
+              <View style={{ marginBottom: 25 }}>
+                <Icon
+                  name="account-heart"
+                  type="material-community"
+                  size={140}
+                  color={'black'}
+                />
+              </View>
+              <TouchableOpacity
+                style={styles.buttons}
+                onPress={() => {
+                  navigation.navigate('RelationshipsPoll');
+                }}
+              >
+                <Text style={styles.participateButton}>Relationships</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 };
@@ -175,6 +182,7 @@ const styles = StyleSheet.create({
     fontFamily: 'HandleeRegular',
     fontSize: 30,
     alignSelf: 'center',
+    marginBottom: '1%',
   },
   image: {
     width: 150,

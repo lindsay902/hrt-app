@@ -220,17 +220,15 @@ const MyPhotos = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <SafeAreaView
-        style={{ borderBottomColor: 'black', borderBottomWidth: 1 }}
-      >
+    <View style={{ flex: 1, backgroundColor: '#55CDFC' }}>
+      <SafeAreaView style={{ borderBottomColor: '#000', borderBottomWidth: 1 }}>
         <View style={styles.header}>
           <Text
             style={{
               fontFamily: 'HandleeRegular',
               fontSize: 25,
               paddingTop: 10,
-              color: 'white',
+              color: '#fff',
             }}
           >
             Timeline Photos
@@ -255,7 +253,7 @@ const MyPhotos = () => {
         </View>
       </SafeAreaView>
       {startOver ? (
-        <View style={{ flex: 1, backgroundColor: 'black' }}>
+        <View style={{ flex: 1, backgroundColor: '#000' }}>
           <FlatList
             style={{ borderWidth: 1 }}
             data={sortedPhotos}
@@ -381,7 +379,7 @@ const MyPhotos = () => {
                   }}
                 >
                   <Text
-                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}
+                    style={{ fontSize: 18, marginBottom: 10, color: '#fff' }}
                   >
                     {' '}
                     Flip{' '}
