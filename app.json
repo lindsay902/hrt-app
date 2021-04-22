@@ -17,7 +17,9 @@
       "assets/preload/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lml.transformation",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
