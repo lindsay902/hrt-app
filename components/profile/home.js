@@ -11,6 +11,7 @@ import PotassiumHormoneLevels from '../Context/HormoneLevels/potassiumLevel';
 import { Icon } from 'react-native-elements';
 import { Image } from 'react-native';
 import { SafeAreaView } from 'react-native';
+import { ScrollView } from 'react-native';
 
 const Home = ({ navigation }) => {
   const [loaded] = useFonts({
@@ -28,7 +29,7 @@ const Home = ({ navigation }) => {
       start={{ x: 1, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <SafeAreaView>
+      <ScrollView>
         <View style={{ flex: 1, marginBottom: '-5%' }}>
           <View style={{ paddingTop: '1%', marginBottom: '-2%' }}>
             <Text style={styles.textStyle}>My Hormone Levels</Text>
@@ -58,7 +59,7 @@ const Home = ({ navigation }) => {
             </Text>
           </View>
         </View>
-        <View style={{ flex: 1, alignItems: 'center', marginTop: '-5%' }}>
+        <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
           <Text style={styles.textStyle}>Community Questions</Text>
           <View
             style={{
@@ -144,7 +145,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     </LinearGradient>
   );
 };

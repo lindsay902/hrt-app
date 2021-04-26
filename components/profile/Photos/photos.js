@@ -137,7 +137,7 @@ const MyPhotos = () => {
       <View style={{ alignItems: 'flex-end' }}>
         <Image
           source={require('../../../assets/addphotoshere.png')}
-          style={{ width: 400, height: 400 }}
+          style={{ width: 300, height: 300 }}
         />
       </View>
     );

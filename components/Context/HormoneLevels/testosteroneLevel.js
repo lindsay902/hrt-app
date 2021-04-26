@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   hormones: {
-    marginLeft: 25,
-    marginRight: 25,
+    marginLeft: '5%',
+    marginRight: '5%',
     alignItems: 'center',
   },
 });
