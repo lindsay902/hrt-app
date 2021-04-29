@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import ViewPager from '@react-native-community/viewpager';
 import { Image } from 'react-native';
+import * as Linking from 'expo-linking';
+import { Pressable } from 'react-native';
 
 const NonFictionBooks = () => {
   return (
@@ -17,76 +19,157 @@ const NonFictionBooks = () => {
         showPageIndicator={true}
       >
         <View style={styles.page} key="1">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/tomorrow.jpg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/tomorrow-will-be-different/id1247229880',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/tomorrow.jpg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Tomorrow Will Be Different</Text>
           <Text>by Sarah McBride</Text>
         </View>
         <View style={styles.page} key="2">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/beyondthegenderbinary.jpeg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/ca/book/beyond-the-gender-binary/id1479330805',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/beyondthegenderbinary.jpeg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Beyond the Gender Binary</Text>
           <Text>by Alok Vaid-Menon</Text>
         </View>
         <View style={styles.page} key="3">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/imafraidofmen.jpeg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/im-afraid-of-men/id1358101883',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/imafraidofmen.jpeg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>I'm Afraid of Men</Text>
           <Text>by Vivek Shraya</Text>
         </View>
         <View style={styles.page} key="4">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/beingjazz.jpeg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/being-jazz/id1078060071',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/beingjazz.jpeg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>
             Being Jazz: My Life as a Transgender Teen
           </Text>
           <Text>by Jazz Jennings</Text>
         </View>
         <View style={styles.page} key="5">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/sissy.jpeg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/sissy/id1415524521',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/sissy.jpeg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Sissy: A Coming-of-Gender Story</Text>
           <Text>by Jacob Tobia</Text>
         </View>
         <View style={styles.page} key="6">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/fairest.jpeg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/fairest/id1484293619',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/fairest.jpeg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Fairest</Text>
           <Text>by Meredith Talusan</Text>
         </View>
         <View style={styles.page} key="7">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/whippinggirl.jpg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/whipping-girl/id1209970471',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/whippinggirl.jpg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Whipping Girl</Text>
           <Text>by Julia Serano</Text>
         </View>
         <View style={styles.page} key="8">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/redefiningrealness.jpg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/us/book/redefining-realness/id668394010',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/redefiningrealness.jpg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Redefining Realness</Text>
           <Text>by Janet Mock</Text>
         </View>
         <View style={styles.page} key="9">
-          <Image
-            style={styles.cover}
-            source={require('../../assets/resources/nonfiction/loveliveshere.jpg')}
-          />
+          <Pressable
+            style={styles.pressableBox}
+            onLongPress={() => {
+              Linking.openURL(
+                'https://books.apple.com/ca/book/love-lives-here/id1445371342',
+              );
+            }}
+          >
+            <Image
+              style={styles.cover}
+              source={require('../../assets/resources/nonfiction/loveliveshere.jpg')}
+            />
+          </Pressable>
           <Text style={styles.bookTitle}>Love Lives Here</Text>
           <Text>by Amanda Jette Knox</Text>
         </View>
@@ -104,10 +187,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  pressableBox: {
+    marginBottom: '%',
+  },
   cover: {
-    maxWidth: '70%',
-    maxHeight: '70%',
+    maxWidth: '75%',
+    maxHeight: '75%',
     borderRadius: 5,
+    marginTop: '8%',
     resizeMode: 'contain',
   },
   bookTitle: {

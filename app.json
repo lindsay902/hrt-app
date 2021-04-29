@@ -19,7 +19,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lml.transformation",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses your camera to take photos and store them on the app. We do not collect this data."
+      }
     },
     "android": {
       "adaptiveIcon": {
