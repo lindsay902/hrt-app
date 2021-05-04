@@ -2,7 +2,7 @@
   "expo": {
     "name": "HrtApp",
     "slug": "HrtApp",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/preload/icon.png",
     "splash": {
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lml.transformation",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.0.2",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses your camera to take photos and store them on the app. We do not collect this data."
       }

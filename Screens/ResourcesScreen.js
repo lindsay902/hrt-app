@@ -17,21 +17,17 @@ const ResourcesScreen = () => {
 
   return (
     <View style={{ flexGrow: 1, backgroundColor: '#55CDFC' }}>
-      <SafeAreaView>
+      <SafeAreaView style={{ marginBottom: '2%' }}>
         <Text style={styles.textStyle}>Library</Text>
       </SafeAreaView>
-      <View style={{ flexGrow: 1 }}>
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: 'space-between',
-            marginHorizontal: 90,
-          }}
-        >
+      <ScrollView>
+        <View style={{ flex: 1, height: 325 }}>
           <NonFictionBooks />
+        </View>
+        <View style={{ flex: 1, height: 325, marginTop: '5%' }}>
           <FictionBooks />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
