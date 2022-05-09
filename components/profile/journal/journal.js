@@ -14,7 +14,7 @@ import Modal from 'react-native-modal';
 import { Icon } from 'react-native-elements';
 import { Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import createRandomId from '../../Shared/createid';
+import createRandomId from '../../shared/createid';
 import { RefreshControl } from 'react-native';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'flex-start',
     alignSelf: 'center',
-    paddingTop: 20,
+    paddingTop: 40,
     paddingBottom: 15,
   },
   container: {

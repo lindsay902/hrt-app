@@ -227,7 +227,7 @@ const MyPhotos = () => {
             style={{
               fontFamily: 'HandleeRegular',
               fontSize: 25,
-              paddingTop: 10,
+              paddingTop: 45,
               color: '#fff',
             }}
           >

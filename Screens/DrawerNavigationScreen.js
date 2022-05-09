@@ -1,6 +1,6 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import NavDrawer from '../components/Shared/drawercontent';
+import NavDrawer from '../components/shared/drawercontent';
 import Main from './MainStackScreen';
 import FeedbackStackScreen from './FeedbackStackScreen';
 import SupportStackScreen from './SupportScreen';

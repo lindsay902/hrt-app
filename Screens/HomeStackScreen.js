@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Logo from '../components/Shared/logo';
+import Logo from '../components/shared/logo';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from '../components/Profile/home';
-import SymptomsPoll from '../components/Community/Polls/symptomsPoll';
-import MentalHealthPoll from '../components/Community/Polls/mentalHealthPoll';
-import BeautyPoll from '../components/Community/Polls/beautyPoll';
-import RelationshipsPoll from '../components/Community/Polls/relationshipsPoll';
+import Home from '../components/profile/home';
+import SymptomsPoll from '../components/community/Polls/symptomsPoll';
+import MentalHealthPoll from '../components/community/Polls/mentalHealthPoll';
+import BeautyPoll from '../components/community/Polls/beautyPoll';
+import RelationshipsPoll from '../components/community/Polls/relationshipsPoll';
 
 const HomeStack = createStackNavigator();
 

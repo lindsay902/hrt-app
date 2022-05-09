@@ -3,8 +3,8 @@ import { SafeAreaView } from 'react-native';
 import { View, StyleSheet, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { ScrollView } from 'react-native-gesture-handler';
-import NonFictionBooks from '../components/Community/non-fictionreads';
-import FictionBooks from '../components/Community/fictionreads';
+import NonFictionBooks from '../components/community/non-fictionreads';
+import FictionBooks from '../components/community/fictionreads';
 
 const ResourcesScreen = () => {
   const [loaded] = useFonts({
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     fontFamily: 'HandleeRegular',
     fontSize: 30,
     alignSelf: 'center',
+    paddingTop: 40,
   },
 });
 

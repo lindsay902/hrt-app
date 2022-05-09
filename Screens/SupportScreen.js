@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Logo from '../components/Shared/logo';
+import Logo from '../components/shared/logo';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Support from '../components/Support/support';
 

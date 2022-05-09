@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import WelcomeScreen from '../components/Login/splash';
-import PrivacyPolicy from '../components/Login/privacypolicy';
-import Terms from '../components/Login/terms';
+import WelcomeScreen from '../components/login/splash';
+import PrivacyPolicy from '../components/login/privacypolicy';
+import Terms from '../components/login/terms';
 import DrawerNavigationScreen from './DrawerNavigationScreen';
 
 const RootStack = createStackNavigator();

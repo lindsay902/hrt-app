@@ -2,8 +2,8 @@ import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStackScreen from './HomeStackScreen';
-import MyPhotos from '../components/Profile/Photos/photos';
-import Journal from '../components/Profile/Journal/journal';
+import MyPhotos from '../components/profile/Photos/photos';
+import Journal from '../components/profile/journal/journal';
 import ResourcesScreen from './ResourcesScreen';
 
 const Tab = createMaterialBottomTabNavigator();
