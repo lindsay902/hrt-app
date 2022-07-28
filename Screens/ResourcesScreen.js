@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import NonFictionBooks from '../components/community/non-fictionreads';
 import FictionBooks from '../components/community/fictionreads';
 
-const ResourcesScreen = () => {
+export const ResourcesScreen = () => {
   const [loaded] = useFonts({
     HandleeRegular: require('../assets/fonts/Handlee-Regular.ttf'),
   });
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ResourcesScreen;
+// export default Resources;

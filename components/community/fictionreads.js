@@ -41,8 +41,7 @@ const carouselBooks = [
     title: 'Paul Takes the Form of a Mortal Girl',
     author: 'by Andrea Lawlor',
     uri: require('../../assets/resources/fiction/paultakestheformofamortalgirl.jpeg'),
-    url:
-      'https://books.apple.com/us/book/paul-takes-the-form-of-a-mortal-girl/id1445347802',
+    url: 'https://books.apple.com/us/book/paul-takes-the-form-of-a-mortal-girl/id1445347802',
   },
   {
     title: 'Small Beauty',
@@ -60,8 +59,7 @@ const carouselBooks = [
     title: "This is how it's Always Been",
     author: 'by Laurel Frankel',
     uri: require('../../assets/resources/fiction/thisishowitalwaysis.jpg'),
-    url:
-      'https://books.apple.com/us/book/this-is-how-it-always-is/id1133133874',
+    url: 'https://books.apple.com/us/book/this-is-how-it-always-is/id1133133874',
   },
 ];
 

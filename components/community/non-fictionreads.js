@@ -11,15 +11,13 @@ const carouselBooks = [
     title: 'Tomorrow Will Be Different',
     author: 'by Sarah McBride',
     uri: require('../../assets/resources/nonfiction/tomorrow.jpg'),
-    url:
-      'https://books.apple.com/us/book/tomorrow-will-be-different/id1247229880',
+    url: 'https://books.apple.com/us/book/tomorrow-will-be-different/id1247229880',
   },
   {
     title: 'Beyond the Gender Binary',
     author: 'by Alok Vaid-Menon',
     uri: require('../../assets/resources/nonfiction/beyondthegenderbinary.jpeg'),
-    url:
-      'https://books.apple.com/ca/book/beyond-the-gender-binary/id1479330805',
+    url: 'https://books.apple.com/ca/book/beyond-the-gender-binary/id1479330805',
   },
   {
     title: "I'm Afraid of Men",
