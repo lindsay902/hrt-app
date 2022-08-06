@@ -100,7 +100,7 @@ const FictionBooks = () => {
       <View style={{ alignItems: 'center', paddingBottom: '3%' }}>
         <Text style={{ fontWeight: 'bold' }}>Fiction</Text>
       </View>
-      <Carousel
+      {/* <Carousel
         layout="default"
         ref={ref}
         data={carouselItems}
@@ -112,7 +112,7 @@ const FictionBooks = () => {
         //useScrollView={true}
         loop={true}
         activeSlideAlignment="center"
-      />
+      /> */}
       {/*
       <ViewPager
         style={styles.viewPager}

@@ -53,7 +53,7 @@ const NavDrawer = (props) => {
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="heart-multiple-outline" color={color} size={size} />
+                <Icon name="face-agent" color={color} size={size} />
               )}
               label="Support"
               onPress={() => {

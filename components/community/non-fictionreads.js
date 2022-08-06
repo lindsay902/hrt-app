@@ -99,7 +99,7 @@ const NonFictionBooks = () => {
       <View style={{ alignItems: 'center', paddingBottom: '3%' }}>
         <Text style={{ fontWeight: 'bold' }}>Non-Fiction</Text>
       </View>
-      <Carousel
+      {/* <Carousel
         layout="default"
         ref={ref}
         data={carouselItems}
@@ -111,7 +111,7 @@ const NonFictionBooks = () => {
         //useScrollView={true}
         loop={true}
         activeSlideAlignment="center"
-      />
+      /> */}
     </View>
   );
 };

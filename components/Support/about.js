@@ -18,16 +18,8 @@ export default function About() {
       <View style={styles.container}>
         <Text style={styles.title}>About this App</Text>
         <Text style={styles.body}>
-          As a cis-gender woman, I have been lucky to have many apps at my
-          disposable when it comes to things like tracking my period, how I'm
-          feeling, my body changes, etc, but for trans women an app like this
-          seemed few and far between. It wasn't until a close a friend of mine
-          began her journey as a trans gender woman that I realized this could
-          be a great opportunity to create something meaningful. While I do not
-          have any medical advice to share (hopefully in the future this app
-          will have more from medical professionals!), it's current goal is to
-          be a space to track your data, log how you are feeling, upload photos,
-          and partake in community questions.
+          This app is designed to be a space to track your hormone data, log how 
+          you are feeling, upload photos, and partake in community questions.
         </Text>
         <Text style={styles.body}>
           This app does not collect any data (data is stored locally on your

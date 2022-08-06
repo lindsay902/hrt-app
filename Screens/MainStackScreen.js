@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStackScreen from './HomeStackScreen';
 import MyPhotos from '../components/profile/Photos/photos';
 import Journal from '../components/profile/journal/journal';
-// import { ResourcesScreen } from './ResourcesScreen';
+import { ResourcesScreen } from './ResourcesScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -48,7 +48,7 @@ function Main() {
       />
       <Tab.Screen
         name="Library"
-        component={MyPhotos}
+        component={ResourcesScreen}
         options={{
           tabBarLabel: 'Library',
           tabBarColor: '#F7A8B8',
